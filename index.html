@@ -1413,6 +1413,167 @@ img.kdh-mon{animation:kdhMon 2.8s ease-in-out infinite;transform-origin:50% 100%
 .kdh-spr,.kdh-friend{animation-name:kdhIdle,kdhBlink;animation-duration:3.4s,5.3s;animation-iteration-count:infinite;animation-timing-function:ease-in-out,steps(1)}
 @keyframes kdhBlink{0%,93%,100%{filter:brightness(1)}95%{filter:brightness(1.25) saturate(1.2)}}
 .k-char::after{content:"";position:absolute;inset:0;background:url(art/card-frame.webp) center/100% 100% no-repeat;pointer-events:none;z-index:5}
+/* ================= v5 : système de design « Idoles chasseuses de démons » (or + nuit étoilée) ================= */
+:root{
+  --g0:#5a3606;--g1:#8a5a12;--g2:#c9922a;--g3:#f6c95b;--g4:#ffe9a8;--g5:#fff8dc;
+  --gold-foil:linear-gradient(135deg,#7a4c0a 0%,#e9b84a 14%,#fff4c4 27%,#d9a23a 40%,#8a5a12 52%,#f0c95e 66%,#fff1b8 80%,#b07818 100%);
+  --gold-soft:linear-gradient(180deg,#fff3c4,#f2c35a 55%,#c98a1b);
+  --glass:linear-gradient(180deg,rgba(40,22,88,.78),rgba(20,10,52,.82));
+  --hair:rgba(255,214,120,.42);
+  --ui-r:20px;--ui-r-sm:14px;
+  --pink1:#ff6fc2;--pink2:#d22c8f;--violet:#7b3cff;
+  --e-out:cubic-bezier(.22,1,.36,1);--e-back:cubic-bezier(.34,1.56,.64,1);
+  --shadow-ui:0 10px 28px rgba(8,2,30,.45),0 2px 6px rgba(8,2,30,.35);
+}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+/* --- barres de titre --- */
+.view>.bar{padding:8px 10px;margin:-2px -2px 0;border-radius:var(--ui-r);background:var(--glass);border:1px solid var(--hair);box-shadow:var(--shadow-ui),inset 0 1px 0 rgba(255,255,255,.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.view>.bar h2,.m-title{color:transparent!important;background:var(--gold-soft);-webkit-background-clip:text;background-clip:text;letter-spacing:.02em;text-shadow:none!important;filter:drop-shadow(0 1px 0 rgba(60,30,0,.6))}
+.view>.bar .m-info .dots{filter:drop-shadow(0 0 4px rgba(255,200,90,.35))}
+/* --- boutons ronds --- */
+.icon-btn,.music-btn{background:radial-gradient(circle at 35% 30%,#4a2a92,#1d0f48 70%)!important;color:var(--g4)!important;border:1.5px solid var(--g3)!important;
+  box-shadow:0 0 0 2px rgba(20,8,50,.6),0 6px 14px rgba(8,2,30,.5),inset 0 1px 0 rgba(255,255,255,.25)!important;transition:transform .18s var(--e-back),box-shadow .2s}
+.icon-btn:active{transform:scale(.9)}
+.icon-btn:hover{box-shadow:0 0 0 2px rgba(20,8,50,.6),0 0 16px rgba(255,200,90,.55),inset 0 1px 0 rgba(255,255,255,.25)!important}
+.lvl-mini,.lvl-badge{background:var(--gold-foil)!important;color:#3a2200!important;border:1.5px solid #fff1b8;box-shadow:0 0 0 2px rgba(90,54,6,.6),0 4px 10px rgba(0,0,0,.4)!important;text-shadow:0 1px 0 rgba(255,255,255,.5)}
+/* --- bouton principal --- */
+.btn{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--pink1),var(--pink2) 70%,#a51d70)!important;color:#fff!important;border:2px solid var(--g3)!important;
+  box-shadow:0 0 0 3px rgba(90,20,70,.55),0 10px 24px rgba(210,44,143,.45),inset 0 2px 0 rgba(255,255,255,.45),inset 0 -4px 0 rgba(90,10,60,.35)!important;
+  text-shadow:0 2px 0 rgba(90,10,60,.45);letter-spacing:.03em;transition:transform .2s var(--e-back),filter .2s}
+.btn::after{content:"";position:absolute;inset:-2px;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 47%,transparent 62%);background-size:260% 100%;animation:uiSweep 3.6s ease-in-out infinite;pointer-events:none}
+.btn:active{transform:translateY(2px) scale(.97);filter:brightness(1.1)}
+@keyframes uiSweep{0%,55%{background-position:120% 0}100%{background-position:-60% 0}}
+.btn.big{padding:.6em 2em;border-radius:999px}
+/* --- boutons secondaires, segments --- */
+.ghost,.seg button{background:linear-gradient(180deg,#fffaf0,#f4e9d2)!important;color:#4a2f08!important;box-shadow:inset 0 0 0 1.5px rgba(201,146,42,.7),0 2px 4px rgba(60,30,0,.15)!important;border-radius:999px}
+.seg{background:rgba(201,146,42,.14)!important;border-radius:999px;padding:3px;box-shadow:inset 0 0 0 1px rgba(201,146,42,.35)}
+.seg button.on,.seg button[aria-pressed="true"]{background:var(--gold-foil)!important;color:#3a2200!important;box-shadow:0 2px 6px rgba(90,54,6,.45),inset 0 1px 0 rgba(255,255,255,.6)!important}
+/* --- tuiles de l'accueil --- */
+.tile-btn,.house-btn{background:var(--glass)!important;color:#fff3d6!important;border:1px solid var(--hair)!important;box-shadow:var(--shadow-ui),inset 0 1px 0 rgba(255,255,255,.12)!important;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .2s var(--e-back),box-shadow .2s;font-family:var(--f-display);letter-spacing:.02em}
+.tile-btn:active,.house-btn:active{transform:translateY(2px) scale(.96)}
+.tile-btn .ti{background:var(--gold-foil)!important;color:#3a2200!important;box-shadow:0 0 0 2px rgba(255,241,184,.6),0 4px 10px rgba(0,0,0,.35)!important}
+.tile-btn b{color:var(--g4)!important;opacity:.85}
+.lvl-row{background:var(--glass)!important;border:1px solid var(--hair);box-shadow:var(--shadow-ui)!important;color:#fff3d6}
+.lvl-row .rank,.lvl-row .xp-txt{color:#fff3d6!important}
+.xp-bar{background:rgba(255,255,255,.12)!important;box-shadow:inset 0 1px 3px rgba(0,0,0,.5)}
+.xp-fill{background:var(--gold-foil)!important;box-shadow:0 0 10px rgba(255,200,90,.6)}
+.title{filter:drop-shadow(0 4px 14px rgba(120,40,200,.55))}
+.tagline{letter-spacing:.12em;text-transform:uppercase;font-size:13px!important;color:var(--g4)!important;opacity:.9}
+/* --- feuilles (fenêtres) : parchemin ivoire, double filet or --- */
+.sheet{background:linear-gradient(180deg,#fffcf3,#f7efe0)!important;border-radius:26px!important;
+  box-shadow:0 0 0 2px var(--g2),0 0 0 5px #2a1660,0 0 0 6.5px rgba(246,201,91,.65),0 24px 60px rgba(5,0,25,.6)!important}
+.sheet h2,.sheet h3{color:#3d2408;letter-spacing:.01em}
+.sheet h3{font-size:15px;text-transform:uppercase;letter-spacing:.12em;color:#8a5a12;display:flex;align-items:center;gap:8px}
+.sheet h3::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(201,146,42,.7),transparent)}
+.overlay{background:radial-gradient(120% 90% at 50% 30%,rgba(40,16,90,.55),rgba(6,2,20,.8))!important;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+/* --- zone de question et réponses --- */
+.qcard{background:linear-gradient(180deg,#fffdf7,#f8f1e3)!important;box-shadow:0 0 0 1.5px var(--g2),0 0 0 4px rgba(42,22,96,.85),0 0 0 5px rgba(246,201,91,.5),var(--shadow-ui)!important}
+.choice{background:linear-gradient(180deg,#fffdf8,#f3ead8)!important;box-shadow:0 0 0 1.5px rgba(201,146,42,.75),0 6px 0 #c9a25a,0 10px 18px rgba(8,2,30,.35)!important;transition:transform .16s var(--e-back),box-shadow .16s!important}
+.choice:active{transform:translateY(4px)!important;box-shadow:0 0 0 1.5px rgba(201,146,42,.75),0 2px 0 #c9a25a,0 4px 8px rgba(8,2,30,.3)!important}
+.speak-btn,.hint-btn{border:2px solid var(--g3)!important;box-shadow:0 0 0 2px rgba(90,20,70,.25),0 6px 14px rgba(8,2,30,.3)!important}
+/* --- arène et HUD --- */
+.arena{box-shadow:0 0 0 1.5px var(--g3),0 0 0 4px #24124f,0 0 0 5px rgba(246,201,91,.55),var(--shadow-ui)!important}
+.arena::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;background:radial-gradient(130% 100% at 50% 40%,transparent 55%,rgba(20,6,50,.45))}
+.kdh-hud>div{background:var(--glass)!important;border:1px solid var(--hair)!important;box-shadow:0 4px 12px rgba(0,0,0,.4)!important;border-radius:999px!important}
+.kdh-hud b{color:var(--g4)!important;letter-spacing:.04em}
+.kh-bar{background:rgba(0,0,0,.45)!important;box-shadow:inset 0 1px 2px rgba(0,0,0,.6)}
+.kh-bar i{background:linear-gradient(180deg,#ff9ad6,#e2348f 60%,#a8146a)!important;box-shadow:0 0 8px rgba(255,90,170,.7),inset 0 1px 0 rgba(255,255,255,.5)}
+.combo-chip{background:var(--gold-foil)!important;color:#3a2200!important;box-shadow:0 0 14px rgba(255,200,90,.6)!important}
+/* --- carte des mondes --- */
+.world-head{background:var(--glass)!important;border:1px solid var(--hair);color:#fff3d6;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:var(--shadow-ui)!important}
+.world-head h3{color:transparent;background:var(--gold-soft);-webkit-background-clip:text;background-clip:text}
+.world-head p,.world-head .wprog{color:#e9dcff!important}
+.world-head .wthumb{box-shadow:0 0 0 2px var(--g3)}
+.map-line path{stroke:url(#none);stroke:#ffd77a!important;stroke-width:4!important;filter:drop-shadow(0 0 4px rgba(255,200,90,.9));stroke-dasharray:1 10!important}
+.node .disc{background:radial-gradient(circle at 35% 30%,#5a3aa8,#251357 70%)!important;color:#ffe9a8!important;box-shadow:0 0 0 2px #c9922a,0 0 0 5px rgba(20,8,50,.7),0 8px 16px rgba(0,0,0,.45)!important;transition:transform .2s var(--e-back)}
+.node.done .disc{background:var(--gold-foil)!important;color:#3a2200!important;box-shadow:0 0 0 2px #fff1b8,0 0 0 5px rgba(90,54,6,.6),0 0 18px rgba(255,200,90,.55)!important}
+.node.locked .disc{background:radial-gradient(circle at 35% 30%,#3a3456,#1a1630 70%)!important;color:#8e86b0!important;box-shadow:0 0 0 2px #4b4470,0 6px 12px rgba(0,0,0,.4)!important}
+.node.current .disc{animation:nodePulse 1.8s ease-in-out infinite}
+@keyframes nodePulse{0%,100%{box-shadow:0 0 0 2px #ff9ad6,0 0 0 5px rgba(210,44,143,.5),0 0 14px rgba(255,90,170,.6)}50%{box-shadow:0 0 0 2px #ff9ad6,0 0 0 9px rgba(210,44,143,.25),0 0 30px rgba(255,90,170,.9)}}
+.node:active .disc{transform:scale(.92)}
+/* --- album, onglets, puces --- */
+.chip,.tabs button,.filter button{border-radius:999px}
+/* --- tenues / amis --- */
+.outfit,.friend{background:linear-gradient(180deg,#fffcf3,#f4ead6)!important;box-shadow:0 0 0 1.5px rgba(201,146,42,.75),var(--shadow-ui)!important}
+.outfit.on{box-shadow:0 0 0 3px var(--g3),0 0 22px rgba(255,200,90,.7),var(--shadow-ui)!important}
+.outfit .pv img,.friend .pv img{transition:transform .3s var(--e-back)}
+.outfit:hover .pv img{transform:translateY(-4px) scale(1.04)}
+
+/* ================= CARTES EN OR ================= */
+.kcard,.cz-tilt{transform:none!important;animation:none!important;translate:none!important}
+.kcard .ca-rays,.kcard .ca-clouds,.kcard .ca-land,.kcard .ca-chars,.kcard .ca-spark{translate:none!important}
+.kcard{border:none!important;border-radius:7%/5%!important;
+  box-shadow:0 0 0 .5px #3a2200,0 8px 18px rgba(6,0,24,.5),0 0 16px rgba(255,196,80,.28)!important}
+.kcard::before{z-index:6!important;inset:0!important;padding:4.2cqw;background:var(--gold-foil)!important;background-size:220% 220%!important;box-shadow:none!important;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  filter:drop-shadow(0 0 .7cqw rgba(50,24,0,.95)) drop-shadow(0 0 .25cqw rgba(255,248,210,1));animation:foil 6s ease-in-out infinite}
+@keyframes foil{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
+.kcard>.kc-shine{position:absolute!important;inset:0!important;z-index:7!important;pointer-events:none;border-radius:inherit;opacity:1!important;mix-blend-mode:soft-light;
+  background:linear-gradient(115deg,transparent 38%,rgba(255,250,225,.95) 48%,rgba(255,236,170,.5) 52%,transparent 62%)!important;background-size:300% 100%!important;animation:cardSweep 5.5s ease-in-out infinite!important}
+.kcard:nth-child(3n+1)>.kc-shine{animation-delay:-1.8s!important}.kcard:nth-child(3n+2)>.kc-shine{animation-delay:-3.6s!important}
+@keyframes cardSweep{0%,62%{background-position:130% 0}100%{background-position:-40% 0}}
+.kcard:not(.kback)::after{opacity:0!important}
+.k-char::after{background:none!important}
+/* mots : fond ivoire doré, texte foncé bien lisible */
+.k-word{background:radial-gradient(120% 70% at 50% 30%,#fffdf4,#fff1cc 60%,#f1d48e)!important}
+.k-word .w-art{background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--c1,#fff) 70%,#fff),color-mix(in srgb,var(--c2,#fc9) 60%,#f6c95b))!important;border-radius:5cqw;margin:5.5cqw 5.5cqw 0;box-shadow:inset 0 0 0 .6cqw rgba(201,146,42,.7),inset 0 0 4cqw rgba(140,90,10,.25)}
+.k-word .w-word,.k-word .en-word b{color:#2b1606!important;text-shadow:0 1px 0 rgba(255,255,255,.8)}
+.k-word .kc-top{z-index:8}
+.k-word .kc-cat,.k-word .kc-no{color:#6b4207!important;background:rgba(255,248,220,.85);border-radius:99px;padding:0 2cqw;box-shadow:inset 0 0 0 .3cqw rgba(201,146,42,.7)}
+.k-word.is-read::before{filter:drop-shadow(0 0 .5cqw rgba(60,30,0,.85)) drop-shadow(0 0 1.6cqw rgba(255,214,90,.9))}
+.k-char{background:linear-gradient(180deg,#22104d,#3a1a6e)!important;animation:none!important}
+.kback{background:radial-gradient(circle at 50% 40%,#3c1f86,#150834 75%)!important}
+/* retournement à plat (sans perspective 3D) : éclat doré, puis la face apparaît */
+.fcard{transform:none!important}
+.fcard.flipped{animation:cardReveal .62s both!important}
+@keyframes cardReveal{0%{transform:scale(1);filter:brightness(1)}45%{transform:scale(.94);filter:brightness(2.4) saturate(.4)}55%{transform:scale(1.07);filter:brightness(2.2)}100%{transform:scale(1);filter:brightness(1)}}
+.pk-card{perspective:none!important}
+.sheet .r-btns{background:linear-gradient(rgba(247,239,224,0),#f7efe0 35%)!important;box-shadow:none!important}
+.sheet .talk .say{background:linear-gradient(180deg,#f6eefc,#efe3fb)!important;box-shadow:inset 0 0 0 1px rgba(162,75,255,.25)}
+.wi-scene{box-shadow:0 0 0 1.5px var(--g2),inset 0 -20px 30px rgba(20,8,50,.2)}
+/* ---- v5 : rig (calques) et effets ---- */
+.kdh-rumi,.kdh-fr{position:relative;display:block;width:100%;height:100%;animation:none!important;transform-origin:50% 100%}
+.kdh-rumi[data-pose="victory"] .rig{animation:kdhCheer .55s var(--e-out,ease-out) infinite alternate!important}
+.rig{position:absolute;inset:0;display:block;transform-origin:50% 100%;animation:rigBreath 3.2s ease-in-out infinite}
+.rig-mon{animation:rigBreathMon 2.6s ease-in-out infinite}
+.rig img.rl,.rig img.rl-ghost{position:absolute!important;inset:0;width:100%;height:100%;opacity:1!important;animation:none!important;transition:none!important;scale:none}
+.rig img.rl{filter:none}
+.rig .rl-head{-webkit-mask-image:linear-gradient(#000 0,#000 30%,transparent 44%);mask-image:linear-gradient(#000 0,#000 30%,transparent 44%);transform-origin:50% 36%;animation:rigHead 3.2s ease-in-out infinite -.45s!important}
+.rig .rl-skirt{-webkit-mask-image:linear-gradient(transparent 46%,#000 58%,#000 84%,transparent 95%);mask-image:linear-gradient(transparent 46%,#000 58%,#000 84%,transparent 95%);transform-origin:50% 52%;animation:rigSkirt 2.4s ease-in-out infinite -.3s!important}
+.rig-mon .rl-head{-webkit-mask-image:linear-gradient(#000 0,#000 36%,transparent 52%);mask-image:linear-gradient(#000 0,#000 36%,transparent 52%);transform-origin:50% 46%;animation:rigHeadMon 2.6s ease-in-out infinite -.6s!important}
+.rig-mon .rl-skirt{animation:rigSkirt 2s ease-in-out infinite!important}
+.rig-dragon .rl-head{animation:rigHeadMon 1.2s ease-in-out infinite!important}
+@keyframes rigBreath{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-1.4%) scale(.993,1.018)}}
+@keyframes rigBreathMon{0%,100%{transform:translateY(0) scale(1,1) rotate(.6deg)}50%{transform:translateY(-1%) scale(1.03,.975) rotate(-.8deg)}}
+@keyframes rigHead{0%,100%{transform:rotate(-1.6deg) translateY(0)}50%{transform:rotate(1.5deg) translateY(-.7%)}}
+@keyframes rigHeadMon{0%,100%{transform:rotate(-2.2deg) translateY(.4%)}50%{transform:rotate(2.4deg) translateY(-1.2%)}}
+@keyframes rigSkirt{0%,100%{transform:skewX(-2.6deg)}50%{transform:skewX(2.6deg)}}
+/* poses */
+.kdh-rumi .rig{transition:scale .12s}
+.kdh-rumi[data-pose="attack"] .rig{scale:1.5;transform-origin:30% 100%}
+.kdh-rumi[data-pose="hurt"] .rig{filter:drop-shadow(0 0 10px rgba(162,75,255,.95)) brightness(1.08)}
+.kdh-rumi img.kdh-spr{transform:none}
+.kdh-rumi[data-pose] img.kdh-spr{transform:none}
+/* monstres : la couleur/lueur est sur le rig (pas sur chaque calque) */
+.demon-box .rig{filter:saturate(calc(.45 + var(--sat,.6) * .6)) brightness(var(--bri,.95)) drop-shadow(0 0 10px rgba(162,75,255,.6))}
+.demon-box .rig:has(.kdh-boss){filter:drop-shadow(0 0 14px rgba(255,60,172,.6))}
+.demon-box.happy .rig{filter:saturate(1.35) brightness(1.15) drop-shadow(0 0 14px rgba(255,211,77,.9))!important;animation:kdhMonHappy 1s ease-in-out infinite}
+.demon-box img.kdh-mon,.demon-box.happy img.kdh-mon{filter:none!important}
+.ca-fig .rig,.ca-fig .rig img{animation:none!important}
+.ca-fig .rig .rl-head,.ca-fig .rig .rl-skirt{display:none}
+/* les anciennes animations CSS de combat sont remplacées par les interpolations */
+#gRomi.dash,#gRomi.dash-big,#gRomi.block,#gRomi.kdh-shake,.demon-box.lunge,#gDemon.hurt,#gDemon.kdh-flash img{animation:none!important}
+#gRomi,#gDemon{overflow:visible}
+.kfx-ghost{position:absolute;z-index:3;pointer-events:none;object-fit:contain;object-position:50% 100%;mix-blend-mode:screen}
+.kfx-flash{position:absolute;inset:0;z-index:5;pointer-events:none;mix-blend-mode:screen}
+.kfx-assist{position:absolute;left:0;bottom:4%;height:82%;aspect-ratio:900/706;z-index:4;pointer-events:none;will-change:transform}
+.kfx-assist.as-dragon{height:92%;bottom:auto;top:4%;aspect-ratio:867/684;filter:drop-shadow(0 0 16px rgba(120,255,150,.75))}
+.kfx-assist.as-zoe{filter:drop-shadow(0 0 12px rgba(90,230,220,.8))}
+.kfx-assist.as-zuma{filter:drop-shadow(0 0 12px rgba(120,240,140,.8))}
+.kfx-assist .as-name{position:absolute;left:50%;top:-4%;transform:translateX(-50%);white-space:nowrap;font:600 clamp(13px,2dvh,17px) var(--f-display);color:#3a2200;background:var(--gold-foil);padding:2px 10px;border-radius:99px;box-shadow:0 2px 8px rgba(0,0,0,.45)}
+.wi-chars .rig,.home-friend .rig{animation-duration:3.6s}
+#gDemon:not(.boss){height:56%!important}
 </style>
 </head>
 <body>
@@ -1482,7 +1643,7 @@ img.kdh-mon{animation:kdhMon 2.8s ease-in-out infinite;transform-origin:50% 100%
     </div>
     <section class="arena" id="arena" aria-hidden="true">
       <div class="arena-land" id="arenaLand"></div>
-      <div class="mood"><span id="dName">Grognon</span><span class="mbar"><i id="moodFill"></i></span></div>
+      <div class="mood"><span id="dName">Démon</span><span class="mbar"><i id="moodFill"></i></span></div>
       <div class="fighter romi-box" id="gRomi"></div>
       <div class="fighter demon-box" id="gDemon"></div>
     </section>
@@ -1648,7 +1809,7 @@ img.kdh-mon{animation:kdhMon 2.8s ease-in-out infinite;transform-origin:50% 100%
 
     <div class="sec">
       <h3>Voix</h3>
-      <div class="row"><div class="seg" id="nvSeg"><button data-v="rec">Voix enregistrée</button><button data-v="neural">Voix naturelle</button><button data-v="system">Voix du téléphone</button></div></div>
+      <div class="row"><div class="seg" id="nvSeg"><button data-v="rec">Voix naturelle de Rumi (recommandée)</button><button data-v="system">Voix de l'appareil</button></div></div>
       <p id="nvStatus"></p>
       <div class="row" id="recRow"><button class="ghost" id="recDl">Garder toutes les phrases pour jouer hors ligne</button><span id="recDlInfo"></span></div>
       <div class="nv-bar" id="nvBar" hidden><i id="nvBarIn"></i></div>
@@ -2056,6 +2217,7 @@ const isBoss = m => m % 10 === 0;
 
 /* ================= Voix (synthèse vocale) ================= */
 const hasTTS = "speechSynthesis" in window;
+if (hasTTS) { const _sp = speechSynthesis.speak.bind(speechSynthesis); speechSynthesis.speak = u => { window.__SYSCALLS = (window.__SYSCALLS || 0) + 1; (window.__SYSLOG || (window.__SYSLOG = [])).push(u.text); return _sp(u); }; }
 let voice = null, speakToken = 0;
 const frVoices = () => hasTTS ? speechSynthesis.getVoices().filter(v => /^fr/i.test(v.lang)) : [];
 function vScore(v){
@@ -2090,9 +2252,48 @@ const VSTYLES = {pep:{p:1.15, r:1.05, name:"Pétillante"}, kid:{p:1.35, r:1.06, 
 const REC = {idx:null, el:null, ok:true, fail:0, unlocked:false};
 fetch("audio/index.json").then(r => r.ok ? r.json() : null).then(j => { if (j) REC.idx = j; }).catch(() => {});
 const recFrag = t => String(t).replace(/\s+/g, " ").trim().split(/(?<=[.!?…])\s+/).map(x => x.trim()).filter(Boolean);
-function recCan(parts){
-  if (!REC.idx || !REC.ok || S.voiceEngine === "system") return false;
-  return parts.every(p => recFrag(p).every(f => REC.idx[f]));
+function recCan(parts){ return !!recPlan(parts); }
+const RECEN = {idx:null};
+fetch("audio/en/index.json").then(r => r.ok ? r.json() : null).then(j => { if (j) RECEN.idx = j; }).catch(() => {});
+window.__VMISS = window.__VMISS || []; window.__SYSCALLS = window.__SYSCALLS || 0;
+const recNorm = t => String(t).replace(/[\u2019]/g, "'").replace(/\s+/g, " ").trim();
+const recKey = t => String(t).toLowerCase().replace(/[\u2019]/g, "'").replace(/[.!?…,:;()«»"]/g, " ").replace(/\s+/g, " ").trim();
+function recNormIdx(idx){
+  if (idx.__n) return idx.__n;
+  const n = new Map(); for (const k in idx) { if (k === "__n") continue; const nk = recKey(k.replace(/^~/, "")); if (nk && (!n.has(nk) || k.startsWith("~") === false)) n.set(nk, idx[k]); }
+  Object.defineProperty(idx, "__n", {value:n, enumerable:false}); return n;
+}
+// plus long morceau connu d'abord (groupes de mots déjà enregistrés), puis mot à mot
+function recWords(g, idx){
+  const N = recNormIdx(idx), ws = recKey(g).split(" ").filter(Boolean), out = [];
+  for (let i = 0; i < ws.length;) {
+    let hit = 0;
+    for (let L = Math.min(14, ws.length - i); L >= 1; L--) { const k = N.get(ws.slice(i, i + L).join(" ")); if (k) { out.push(k); hit = L; break; } }
+    if (!hit) return null; i += hit;
+  }
+  return out;
+}
+function recResolve(f, idx){
+  const g = recNorm(f).replace(/[«»"]/g, "").trim(); if (!g || !/[\p{L}\p{N}]/u.test(g)) return [];
+  if (idx[g]) return [idx[g]];
+  const b = g.replace(/\s*[.!?…]+$/, "");
+  for (const v of [b, b + ".", b + " !", b + "!", b + " ?", b + "?", b + "…"]) if (idx[v]) return [idx[v]];
+  const cs = g.split(/\s*[,:;]\s+|\s+[-–]\s+/).filter(x => x.trim());
+  if (cs.length > 1) { const out = []; for (const c of cs) { const r = recResolve(c, idx); if (!r) return null; out.push(...r); } return out; }
+  return recWords(g, idx);
+}
+// parts : textes français, ou {t, en:true} ; renvoie une liste de clés de fichiers par morceau (ou null)
+function recPlan(parts){
+  if (!REC.idx || !REC.ok || S.voiceEngine === "system") return null;
+  const plan = []; let bad = false;
+  for (const p of parts) {
+    const en = typeof p === "object" && p.en, t = typeof p === "object" ? p.t : p;
+    let keys = [];
+    if (en) { if (!RECEN.idx) return null; const r = recResolve(t, RECEN.idx); if (!r) { __VMISS.push("EN|" + t); bad = true; continue; } keys = r.map(k => "en/" + k); }
+    else for (const f of recFrag(t)) { const r = recResolve(f, REC.idx); if (!r) { __VMISS.push(f); bad = true; } else keys.push(...r); }
+    plan.push(keys);
+  }
+  return bad ? null : plan;
 }
 function recEl(){ if (!REC.el) { REC.el = new Audio(); REC.el.preload = "auto"; } return REC.el; }
 function recPlay(key){
@@ -2100,23 +2301,23 @@ function recPlay(key){
     const a = recEl(); let done = false, tm = 0;
     const end = ok => { if (done) return; done = true; a.onended = a.onerror = null; clearTimeout(tm); res(ok); };
     a.onended = () => end(true);
-    a.onerror = () => { if (++REC.fail > 4) REC.ok = false; end(false); };
+    a.onerror = () => { REC.fail++; end(false); };
     a.src = `audio/${key}.mp3`;
     try { a.preservesPitch = true; a.webkitPreservesPitch = true; } catch(e) {}
     a.playbackRate = S.slow ? .85 : 1;
-    tm = setTimeout(() => end(true), 15000);
+    tm = setTimeout(() => end(true), 9000);
     const pr = a.play(); if (pr && pr.catch) pr.catch(() => end(false));
   });
 }
-async function recSay(parts, opts, token){
+async function recSay(parts, opts, token, plan){
+  plan = plan || recPlan(parts);
   document.body.classList.add("speaking"); duck(true);
   for (let i = 0; i < parts.length; i++) {
     if (token !== speakToken) return;
     opts.onPart && opts.onPart(i);
-    for (const f of recFrag(parts[i])) {
+    for (const k of plan[i]) {
       if (token !== speakToken) return;
-      const ok = await recPlay(REC.idx[f]);
-      if (!ok && token === speakToken) { document.body.classList.remove("speaking"); duck(false); return saySys(parts.slice(i), {...opts, onPart:opts.onPart ? n => opts.onPart(n + i) : null}); }
+      await recPlay(k);
     }
   }
   if (token === speakToken) { document.body.classList.remove("speaking"); duck(false); }
@@ -2129,7 +2330,7 @@ document.addEventListener("pointerdown", function recUnlock(){
 }, true);
 async function recDownloadAll(onProg){
   if (!REC.idx || !("caches" in window)) return false;
-  const keys = [...new Set(Object.values(REC.idx))], c = await caches.open("romi-audio");
+  const keys = [...new Set([...Object.values(REC.idx), ...Object.values(RECEN.idx || {}).map(k => "en/" + k)])], c = await caches.open("romi-audio");
   let n = 0;
   for (let i = 0; i < keys.length; i += 8) {
     await Promise.all(keys.slice(i, i + 8).map(async k => { const u = new URL(`audio/${k}.mp3`, location.href).href; if (!(await c.match(u))) { try { const r = await fetch(u); if (r.ok) await c.put(u, r); } catch(e) {} } n++; }));
@@ -2137,7 +2338,7 @@ async function recDownloadAll(onProg){
   }
   return true;
 }
-function voiceMigrate(){ if (!S.voiceV4) { S.voiceV4 = true; if (S.voiceEngine !== "system") S.voiceEngine = "rec"; save(); } }
+function voiceMigrate(){ if (!S.voiceV5) { S.voiceV5 = true; S.voiceV4 = true; S.voiceEngine = "rec"; save(); } if (!S.voiceV4) { S.voiceV4 = true; if (S.voiceEngine !== "system") S.voiceEngine = "rec"; save(); } }
 
 function stopSpeech(){ speakToken++; if (hasTTS) speechSynthesis.cancel(); if (REC.el) { try { REC.el.pause(); } catch(e) {} } nvStop(); document.body.classList.remove("speaking"); duck(false); }
 let speakAs = null;   // voix d'un autre personnage (Zoé, Zuma) pour les indices
@@ -2213,81 +2414,95 @@ const sfx = {
 };
 // ===== Musique douce : séquenceur calme (nappes, arpèges, basse feutrée) =====
 const Music = (() => {
-  let out = null, timer = 0, nextT = 0, step = 0, track = "main", on = false, nb = null;
+  // Synth-pop « K-pop » original, généré en direct (Web Audio) : 118 BPM, batterie 4/4, basse pulsée,
+  // accords « supersaw » avec effet de pompe, mélodie accrocheuse. Version « calme » (filtrée, très basse)
+  // dès que l'appli parle ou que l'enfant doit écouter / répondre.
+  let out = null, lp = null, timer = 0, nextT = 0, step = 0, track = "main", on = false, nb = null, pump = null;
+  let ducked = false, calmQ = false, muted = false;
   const mf = n => 440 * Math.pow(2, (n - 69) / 12);
   const TR = {
-    // Do majeur, 76 BPM : Cmaj7 – Am7 – Fmaj7 – G6
-    main: {bpm:76, ch:[[48,55,59,64],[45,52,55,60],[41,48,52,57],[43,50,55,59]],
-      mel:[76,0,0,79, 0,0,76,74, 72,0,0,0, 74,0,72,69, 72,0,0,74, 0,0,76,0, 79,0,76,0, 74,0,0,0]},
-    // Combat contre le Grand Grognon : la mineur sombre, 104 BPM, basse qui martèle, cœur qui bat,
-    // nappes tremblantes et petite mélodie inquiétante (demi-tons). Am – B♭ – Am – G♯dim
-    boss: {bpm:104, ch:[[45,48,52,57],[46,50,53,58],[45,48,52,57],[44,47,50,53]],
-      mel:[76,0,77,0, 76,0,0,0, 77,0,78,0, 77,0,0,0, 72,0,71,0, 72,0,76,0, 75,0,0,0, 74,0,0,0]}
+    // La majeur : F♯m – D – A – E (vi–IV–I–V), 118 BPM
+    main: {bpm:118, ch:[[54,57,61],[50,54,57],[57,61,64],[52,56,59]], root:[42,38,45,40],
+      melA:[73,0,73,76, 0,73,71,0, 69,0,69,71, 73,0,0,0,  74,0,74,73, 0,71,69,0, 71,0,73,0, 71,0,68,0,
+            73,0,73,76, 0,78,76,0, 73,0,69,71, 73,0,0,0,  74,0,73,71, 0,69,71,0, 76,0,0,0, 0,0,0,0],
+      melB:[81,0,80,0, 78,0,76,0, 78,0,0,76, 0,73,0,0,  78,0,76,0, 74,0,73,0, 71,0,73,0, 74,0,76,0,
+            81,0,80,0, 78,0,76,78, 0,81,0,78, 76,0,0,0,  74,0,76,0, 78,0,80,0, 81,0,0,0, 0,0,0,0]},
+    // Combat contre un seigneur démon : la mineur, 124 BPM, plus sombre (Am – F – G – E)
+    boss: {bpm:124, ch:[[57,60,64],[53,57,60],[55,59,62],[52,56,59]], root:[45,41,43,40],
+      melA:[69,0,72,0, 76,0,74,72, 0,71,0,72, 74,0,0,0,  72,0,69,0, 72,0,77,76, 0,74,0,72, 71,0,68,0,
+            69,0,72,0, 76,0,79,77, 0,76,0,74, 72,0,0,0,  71,0,72,0, 74,0,76,0, 75,0,0,0, 76,0,0,0],
+      melB:null}
   };
+  function noise(){ if (!nb) { nb = ac.createBuffer(1, ac.sampleRate, ac.sampleRate); const c = nb.getChannelData(0); for (let i = 0; i < c.length; i++) c[i] = Math.random() * 2 - 1; } return nb; }
   function v(f, t, d, o = {}){
-    const osc = ac.createOscillator(), g = ac.createGain();
-    osc.type = o.type || "sine"; osc.frequency.setValueAtTime(f, t); if (o.det) osc.detune.setValueAtTime(o.det, t);
-    let node = osc;
-    if (o.cut) { const fl = ac.createBiquadFilter(); fl.type = "lowpass"; fl.frequency.value = o.cut; osc.connect(fl); node = fl; }
-    const vol = o.vol || .05, att = o.att || .01;
-    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + att); g.gain.exponentialRampToValueAtTime(.0001, t + Math.max(d, att + .02));
-    node.connect(g).connect(out); osc.start(t); osc.stop(t + d + .05);
+    const g = ac.createGain(), vol = o.vol || .05, att = o.att || .005, rel = o.rel || .05;
+    const oscs = (o.det || [0]).map(dt => { const osc = ac.createOscillator(); osc.type = o.type || "sine"; osc.frequency.setValueAtTime(f, t); osc.detune.setValueAtTime(dt, t);
+      if (o.vib) { const l = ac.createOscillator(), lg = ac.createGain(); l.frequency.value = 5.5; lg.gain.value = o.vib; l.connect(lg).connect(osc.detune); l.start(t + .08); l.stop(t + d + rel); }
+      return osc; });
+    let node = g;
+    if (o.cut) { const fl = ac.createBiquadFilter(); fl.type = "lowpass"; fl.frequency.setValueAtTime(o.cut, t); if (o.env) fl.frequency.exponentialRampToValueAtTime(Math.max(200, o.cut * o.env), t + d); fl.Q.value = o.q || .7; g.connect(fl); node = fl; }
+    node.connect(o.dest || out);
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol / oscs.length, t + att);
+    g.gain.setValueAtTime(vol / oscs.length * (o.sus || 1), t + Math.max(att, d - rel)); g.gain.exponentialRampToValueAtTime(.0001, t + d + rel);
+    oscs.forEach(osc => { osc.connect(g); osc.start(t); osc.stop(t + d + rel + .02); });
   }
-  function shaker(t, vol){
-    if (!nb) { nb = ac.createBuffer(1, ac.sampleRate/2, ac.sampleRate); const c = nb.getChannelData(0); for (let i = 0; i < c.length; i++) c[i] = Math.random()*2 - 1; }
-    const s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
-    s.buffer = nb; f.type = "highpass"; f.frequency.value = 6500;
-    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + .06);
-    s.connect(f).connect(g).connect(out); s.start(t, Math.random()*.3); s.stop(t + .08);
-  }
-  function schedBoss(t, st){
-    const T = TR.boss, beat = 60 / T.bpm, e8 = beat / 2, bar = Math.floor(st/8) % 4, s = st % 8, loop = Math.floor(st/32), ch = T.ch[bar];
-    // basse qui martèle (croches graves)
-    v(mf(ch[0] - 24), t, e8 * .9, {type:"sawtooth", vol:.05, att:.005, cut:260});
-    if (s % 2 === 0) v(mf(ch[0] - 12), t, e8 * .7, {type:"square", vol:.012, att:.005, cut:420});
-    // cœur qui bat : « boum-boum » en début de mesure, timbale à la moitié
-    const kick = (tt, f0, vol) => { const o = ac.createOscillator(), g = ac.createGain(); o.frequency.setValueAtTime(f0, tt); o.frequency.exponentialRampToValueAtTime(40, tt + .2); g.gain.setValueAtTime(vol, tt); g.gain.exponentialRampToValueAtTime(.0001, tt + .32); o.connect(g).connect(out); o.start(tt); o.stop(tt + .35); };
-    if (s === 0) { kick(t, 90, .2); kick(t + e8 * .55, 80, .14); }
-    if (s === 4) kick(t, 70, .16);
-    // nappes de cordes tremblantes (trémolo) sur l'accord
-    ch.forEach(n => v(mf(n), t, e8 * .95, {type:"sawtooth", vol:.006, att:.03, cut:900}));
-    if (s === 0) ch.forEach(n => v(mf(n + 12), t, beat * 4, {vol:.012, att:.9, cut:1600}));
-    // tic-tac aigu (tension)
-    if (s % 2 === 0) v(2637, t, .02, {type:"triangle", vol:.005, att:.002});
-    // coup de gong grave au début de chaque tour
-    if (st % 32 === 0) { v(mf(33), t, beat * 6, {type:"triangle", vol:.08, att:.01, cut:300}); v(mf(45) * 1.414, t, beat * 3, {vol:.012, att:.02}); }
-    // petite mélodie inquiétante, une fois sur deux
-    const m = T.mel[(bar * 8 + s) % 32];
-    if (m && loop % 2 === 1) { v(mf(m), t, beat * .9, {type:"sine", vol:.03, att:.02}); v(mf(m + 1), t, beat * .6, {type:"sine", vol:.006, att:.05}); }
-  }
+  function kick(t, vol = .32){ const o = ac.createOscillator(), g = ac.createGain(); o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(42, t + .12);
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + .3); o.connect(g).connect(out); o.start(t); o.stop(t + .32);
+    // effet de pompe sur les accords
+    if (pump) { pump.gain.cancelScheduledValues(t); pump.gain.setValueAtTime(.25, t); pump.gain.linearRampToValueAtTime(1, t + .22); } }
+  function nz(t, d, vol, type, freq, q = 1){ const s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
+    s.buffer = noise(); f.type = type; f.frequency.value = freq; f.Q.value = q;
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + d); s.connect(f).connect(g).connect(out); s.start(t, Math.random() * .5); s.stop(t + d + .02); }
+  const clap = (t, vol = .09) => { nz(t, .16, vol, "bandpass", 1500, .8); nz(t + .012, .12, vol * .7, "bandpass", 2200, .9); v(190, t, .07, {type:"triangle", vol:.05}); };
   function sched(t, st){
-    if (track === "boss") return schedBoss(t, st);
-    const T = TR[track], beat = 60 / T.bpm, e8 = beat / 2, bar = Math.floor(st/8) % 4, s = st % 8, loop = Math.floor(st/32), ch = T.ch[bar];
-    if (s === 0) ch.forEach(n => v(mf(n + 12), t, beat*4.2, {vol:.018, att:.7, cut:1400}));
-    if (s === 0 || s === 4) v(mf(ch[0] - 12), t, beat*1.6, {vol:.08, att:.02, cut:500});
-    if (s === 0 || (track === "boss" && s === 4)) { const o = ac.createOscillator(), g = ac.createGain(); o.frequency.setValueAtTime(95, t); o.frequency.exponentialRampToValueAtTime(48, t + .18); g.gain.setValueAtTime(.12, t); g.gain.exponentialRampToValueAtTime(.0001, t + .35); o.connect(g).connect(out); o.start(t); o.stop(t + .4); }
-    const arp = [0,2,1,3,2,1,3,2][s], n = ch[arp] + 12;
-    v(mf(n), t, e8*2.2, {type:"triangle", vol:.03, att:.005});
-    v(mf(n + 12), t, e8*1.5, {vol:.008, att:.005});
-    if (s % 2 === 1) shaker(t, .012);
-    if (track === "boss") { if (s === 0) v(mf(ch[0]), t, beat*4, {type:"sawtooth", vol:.012, att:.4, cut:420}); v(1760, t, .03, {type:"triangle", vol:.004}); }
-    const m = T.mel[(bar*8 + s) % 32];
-    if (m && loop % 2 === 1) { v(mf(m), t, beat*.95, {type:"triangle", vol:.04, att:.01}); v(mf(m), t + e8*1.5, beat*.8, {type:"triangle", vol:.012, att:.01}); }
+    const T = TR[track], s16 = 60 / T.bpm / 4, beat16 = st % 16, bar = Math.floor(st / 16) % 4, sec = Math.floor(st / 64) % 4, ch = T.ch[bar];
+    const intro = st < 32, boss = track === "boss";
+    // batterie
+    if (beat16 % 4 === 0 && !(intro && st < 16)) kick(t);
+    if (beat16 === 4 || beat16 === 12) clap(t);
+    if (!intro) nz(t, beat16 % 4 === 2 ? .09 : .03, beat16 % 4 === 2 ? .035 : .018, "highpass", 8000);
+    if (boss && beat16 % 2 === 0) v(mf(T.root[bar] - 12), t, s16 * 1.6, {type:"sawtooth", vol:.06, cut:380});
+    // fill sur la dernière mesure de chaque section
+    if (bar === 3 && beat16 >= 12 && sec % 2 === 1) clap(t, .05);
+    // basse : croches octaviées, pompée
+    if (!boss && beat16 % 2 === 0) { const n = T.root[bar] + (beat16 % 4 === 2 ? 12 : 0); v(mf(n - 12), t, s16 * 1.7, {type:"sawtooth", vol:.07, cut:900, env:.35, q:4}); }
+    // accords supersaw (sur la pompe)
+    if (beat16 === 0) ch.forEach(n => v(mf(n), t, s16 * 15, {type:"sawtooth", det:[-14, 0, 13], vol:.026, att:.02, rel:.15, cut:intro ? 900 : 2600, dest:pump}));
+    // arpège pluck en double croches (couplet), plus brillant au refrain
+    const arp = ch[[0, 1, 2, 1][beat16 % 4]] + (beat16 % 8 >= 4 ? 12 : 0) + 12;
+    if (!intro) v(mf(arp), t, s16 * .8, {type:"square", vol:sec % 2 ? .012 : .018, cut:3200, env:.3});
+    // mélodie : couplet (A) puis refrain (B), en alternance
+    const mel = (sec % 2 === 1 && T.melB) ? T.melB : T.melA, m = mel[(Math.floor(st / 2)) % 64];
+    if (!intro && st % 2 === 0 && m) { v(mf(m), t, s16 * 1.8, {type:"square", det:[-6, 6], vol:.032, cut:4200, vib:12, sus:.7});
+      v(mf(m + 12), t, s16 * 1.2, {type:"sine", vol:.01}); }
+    // petit « hey » synthé en fin de refrain
+    if (sec % 2 === 1 && bar === 3 && beat16 === 14) nz(t, .12, .05, "bandpass", 900, 3);
   }
   function tick(){
     if (!ac || ac.state !== "running") return;
-    const e8 = 60 / TR[track].bpm / 2;
+    const s16 = 60 / TR[track].bpm / 4;
     if (nextT < ac.currentTime - .2) nextT = ac.currentTime + .05;
-    while (nextT < ac.currentTime + .2) { sched(nextT, step); nextT += e8; step++; }
+    while (nextT < ac.currentTime + .25) { sched(nextT, step); nextT += s16; step++; }
+  }
+  function level(){
+    if (!out || !ac) return;
+    const t = ac.currentTime, calm = ducked || calmQ;
+    out.gain.cancelScheduledValues(t); lp.frequency.cancelScheduledValues(t);
+    if (muted) { out.gain.setValueAtTime(0, t); return; }
+    out.gain.setTargetAtTime(calm ? .1 : .5, t, calm ? .08 : .45);
+    lp.frequency.setTargetAtTime(calm ? 650 : 16000, t, calm ? .08 : .45);
   }
   return {
-    start(){ if (!audio()) return; if (!out) { out = ac.createGain(); out.gain.value = .6; out.connect(ac.destination); }
-      if (on) return; on = true; nextT = ac.currentTime + .08; step = 0; timer = setInterval(tick, 30); },
+    start(){ if (!audio()) return;
+      if (!out) { lp = ac.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 16000; out = ac.createGain(); out.gain.value = .5; out.connect(lp).connect(ac.destination);
+        pump = ac.createGain(); pump.gain.value = 1; pump.connect(out); }
+      if (on) return; on = true; nextT = ac.currentTime + .08; step = 0; timer = setInterval(tick, 25); level(); },
     stop(){ on = false; clearInterval(timer); },
     setTrack(tr){ if (tr === track) return; track = tr; step = 0; if (on && ac) nextT = ac.currentTime + .08; },
-    duck(d){ if (out && ac) out.gain.setTargetAtTime(d ? .2 : .6, ac.currentTime, .2); },
-    // coupe net pendant l'écoute du micro (sinon l'iPad entend la musique au lieu de l'enfant)
-    mute(m){ if (!out || !ac) return; out.gain.cancelScheduledValues(ac.currentTime); out.gain.setValueAtTime(m ? 0 : .6, ac.currentTime); }
+    duck(d){ ducked = !!d; level(); },
+    calm(c){ calmQ = !!c; level(); },
+    mute(m){ muted = !!m; level(); },
+    get state(){ return {on, track, ducked, calmQ, muted}; }
   };
 })();
 function setMusic(on){
@@ -2633,7 +2848,7 @@ function romiSVG_old(o){
   </g></svg>`;
 }
 // Zoé : la copine de classe qui adore lire (nuage de boucles, serre-tête arc-en-ciel, lunettes rondes, livre)
-function zoeSVG(){ return artImg("zoe-idle", "kdh-friend"); }
+function zoeSVG(){ return `<span class="kdh-fr">${rigHTML("zoe-idle", "kdh-friend", "", "hero")}</span>`; }
 function zoeSVG_old(){
   const u = "z" + (++uidN);
   const curls = [[30,30,12],[90,30,12],[33,62,9],[87,62,9],[36,78,8],[84,78,8]];
@@ -2666,7 +2881,7 @@ function zoeSVG_old(){
   </g></svg>`;
 }
 // Zuma : le petit dragon des nombres (dos arc-en-ciel, ailes pastel, grands yeux pétillants)
-function zumaSVG(){ return artImg("zuma-idle", "kdh-friend"); }
+function zumaSVG(){ return `<span class="kdh-fr">${rigHTML("zuma-idle", "kdh-friend", "", "hero")}</span>`; }
 function zumaSVG_old(){
   const u = "m" + (++uidN), L = INK;
   const spikes = [[44,36],[52,31],[60,29],[68,31],[76,36]];
@@ -2767,15 +2982,15 @@ function outfitFilter(o){
 const artImg = (f, cls = "", style = "") => `<img class="kdh-img ${cls}" src="${ART}${f}.webp" alt="" draggable="false" decoding="async" style="${style}">`;
 function rumiArt(o, pose = "idle"){
   const oi = OUTFITS.indexOf(o), own = oi > 0 && rumiFrames("idle", oi)[0].startsWith(`rumi-o${oi}-`);
-  return `<span class="kdh-rumi" data-pose="${pose}">${artImg(rumiFrames(pose, oi)[0], "kdh-spr", own ? "" : outfitFilter(o))}</span>`;
+  return `<span class="kdh-rumi" data-pose="${pose}">${rigHTML(rumiFrames(pose, oi)[0], "kdh-spr", own ? "" : outfitFilter(o), "hero")}</span>`;
 }
 const WORLD_HUE = [0, 0, 0, 0, 0, 0];
 function grogArt(idx, big, world){
-  if (big) { const w = Math.min(6, Math.max(1, world || 1)); return artImg("boss-" + (w - 1), "kdh-mon kdh-boss"); }
-  return artImg("grognon-" + (((idx % 6) + 6) % 6) + "-idle", "kdh-mon");
+  if (big) { const w = Math.min(6, Math.max(1, world || 1)); return rigHTML("boss-" + (w - 1), "kdh-mon kdh-boss", "", "mon"); }
+  return rigHTML("grognon-" + (((idx % 6) + 6) % 6) + "-idle", "kdh-mon", "", "mon");
 }
 const BADGES = ["rumi", "zoe", "zuma", "tiger", "bird", "boss"];
-const BADGE_N = {rumi:"Rumi", zoe:"Zoé", zuma:"Zuma", tiger:"Bleuet", bird:"Plume", boss:"Grand Grognon"};
+const BADGE_N = {rumi:"Rumi", zoe:"Zoé", zuma:"Zuma", tiger:"Bleuet", bird:"Plume", boss:"Seigneur démon"};
 function kdhCardBadge(id){ const k = BADGES[(id || 0) % BADGES.length], f = k === "boss" ? "boss" + (Math.floor((id || 0) / 6) % 6) : k; return `<span class="kdh-badge kb-${k}" title="${BADGE_N[k]}"><img src="${ART}badge-${f}.webp" alt="" decoding="async" loading="lazy"></span>`; }
 /* --- combat : poses, projectiles, barres de vie (purement visuel, ne change rien aux règles) --- */
 const KF = {hurt:0, max:5};
@@ -2783,7 +2998,7 @@ function kdhPose(p){ rumiAct(p === "attack" ? "slash" : p); }
 function kdhHud(reset){
   const ar = $("#arena"); if (!ar) return;
   let h = $("#kdhHud");
-  if (!h) { h = document.createElement("div"); h.id = "kdhHud"; h.className = "kdh-hud"; h.innerHTML = `<div class="kh-r"><b>Rumi</b><span class="kh-hearts" id="khHearts"></span></div><div class="kh-m"><b id="khMName">Grognon</b><span class="kh-bar"><i id="khMFill"></i></span></div>`; ar.appendChild(h); }
+  if (!h) { h = document.createElement("div"); h.id = "kdhHud"; h.className = "kdh-hud"; h.innerHTML = `<div class="kh-r"><b>Rumi</b><span class="kh-hearts" id="khHearts"></span></div><div class="kh-m"><b id="khMName">Démon</b><span class="kh-bar"><i id="khMFill"></i></span></div>`; ar.appendChild(h); }
   if (reset) KF.hurt = 0;
   const c = S.cur, f = c ? 1 - c.idx / c.plan.length : 1;
   $("#khMFill").style.width = Math.max(0, f * 100) + "%";
@@ -2840,7 +3055,7 @@ function kfxPreload(names){ names.forEach(n => { if (KFX.preloaded.has(n)) retur
 function sprPlay(img, frames, {fps = 8, loop = false} = {}){
   if (!img) return;
   const prev = KFX.sprites.get(img); if (prev) clearInterval(prev);
-  let i = 0; const set = () => { const src = `${ART}${frames[i]}.webp`; if (!img.src.endsWith(src)) img.src = src; };
+  let i = 0; const set = () => rigSet(img, `${ART}${frames[i]}.webp`);
   set();
   if (frames.length > 1) KFX.sprites.set(img, setInterval(() => { i++; if (i >= frames.length) { if (!loop) { clearInterval(KFX.sprites.get(img)); return; } i = 0; } set(); }, 1000 / fps));
 }
@@ -2903,55 +3118,191 @@ function kfxNum(el, txt, cls, scale = 1){
   const n = document.createElement("div"); n.className = "kdh-num " + cls; n.textContent = txt; n.style.left = p.x + "px"; n.style.top = p.y + "px"; n.style.fontSize = `calc(clamp(20px,3.6dvh,34px) * ${scale})`;
   ar.appendChild(n); setTimeout(() => n.remove(), 1000);
 }
-/* --- enchaînements --- */
+/* ================= v5 : moteur d'animation « vivant » =================
+   - Chaque personnage est monté sur un petit squelette (« rig ») : 3 calques de la même image
+     (corps, jupe/cape, tête/cheveux) qui bougent séparément (respiration, tête qui suit, tissu qui flotte).
+   - Fondu enchaîné entre les images d'une action, interpolations à la GSAP (écrites ici, hors ligne),
+     anticipation, écrasement/étirement, traînées (images fantômes + flou de mouvement), arrêt sur image, recul.
+   - Les amis Zoé et Zuma viennent aider pendant les séries de bonnes réponses ; grosse série = le dragon de Zuma. */
+const Ease = {
+  linear:t => t, p2o:t => 1 - (1 - t) * (1 - t), p3o:t => 1 - Math.pow(1 - t, 3), p2i:t => t * t, p3i:t => t * t * t,
+  p2io:t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2,
+  expoI:t => t === 0 ? 0 : Math.pow(2, 10 * t - 10), expoO:t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+  backO:t => { const s = 1.70158; return 1 + (s + 1) * Math.pow(t - 1, 3) + s * Math.pow(t - 1, 2); },
+  backI:t => { const s = 1.70158; return (s + 1) * t * t * t - s * t * t; },
+  elasticO:t => t === 0 || t === 1 ? t : Math.pow(2, -10 * t) * Math.sin((t * 10 - .75) * (2 * Math.PI / 3)) + 1,
+  sine:t => -(Math.cos(Math.PI * t) - 1) / 2
+};
+const TW0 = {x:0, y:0, r:0, sx:1, sy:1, o:1, b:0, br:1};
+const twCss = v => ({transform:`translate(${v.x.toFixed(1)}px,${v.y.toFixed(1)}px) rotate(${v.r.toFixed(2)}deg) scale(${v.sx.toFixed(3)},${v.sy.toFixed(3)})`,
+  opacity:v.o, filter:(v.b > .05 ? `blur(${v.b.toFixed(2)}px) ` : "") + (Math.abs(v.br - 1) > .01 ? `brightness(${v.br.toFixed(2)})` : "") || "none"});
+// tw(el, {x, y, r, sx, sy, o, b, br}, ms, ease) : part de l'état courant de l'élément
+function tw(el, to, ms = 300, ease = "p3o"){
+  if (!el || !el.animate) return Promise.resolve();
+  const from = el._tw || {...TW0}, end = {...from, ...to}, E = Ease[ease] || Ease.p3o, N = Math.max(2, Math.round(ms / 16)), kf = [];
+  for (let i = 0; i <= N; i++) { const k = E(i / N), v = {}; for (const p in TW0) v[p] = from[p] + (end[p] - from[p]) * k; kf.push(twCss(v)); }
+  if (el._twa) { try { el._twa.cancel(); } catch(e) {} }
+  el._tw = end; const a = el._twa = el.animate(kf, {duration:ms, fill:"forwards", easing:"linear"});
+  return new Promise(res => { a.onfinish = a.oncancel = () => res(); });
+}
+const twWait = ms => new Promise(r => setTimeout(r, ms));
+function twReset(el){ if (!el) return; if (el._twa) { try { el._twa.cancel(); } catch(e) {} } el._tw = null; el._twa = null; }
+/* --- rig : 3 calques de la même image --- */
+const RIG_L = ["rl-base", "rl-skirt", "rl-head"];
+function rigHTML(f, cls = "", style = "", kind = "hero"){
+  return `<span class="rig rig-${kind}">${RIG_L.map(l => `<img class="kdh-img ${cls} rl ${l}" src="${ART}${f}.webp" alt="" draggable="false" decoding="async" style="${style}">`).join("")}</span>`;
+}
+const rigOf = el => el ? (el.classList && el.classList.contains("rig") ? el : el.querySelector(".rig")) : null;
+// change d'image sur tout le rig, avec un fondu enchaîné très court
+function rigSet(img, src){
+  const rig = img.closest && img.closest(".rig"), imgs = rig ? [...rig.querySelectorAll("img.rl")] : [img];
+  if (imgs[0].src.endsWith(src)) return;
+  if (rig && imgs[0].complete && imgs[0].naturalWidth) {
+    const g = document.createElement("img"); g.className = "kdh-img rl-ghost"; g.src = imgs[0].src; g.alt = ""; rig.appendChild(g);
+    const a = g.animate([{opacity:1}, {opacity:0}], {duration:140, easing:"ease-out", fill:"forwards"}); a.onfinish = () => g.remove();
+  }
+  imgs.forEach(i => { i.src = src; });
+}
+/* --- images fantômes (traînée) --- */
+function kfxGhost(el, {col = "rgba(255,214,110,.9)", life = 240, op = .5} = {}){
+  const ar = $("#arena"), img = el && el.querySelector("img.rl-base, img"); if (!ar || !img) return;
+  const ra = ar.getBoundingClientRect(), r = img.getBoundingClientRect();
+  const g = document.createElement("img"); g.src = img.src; g.className = "kfx-ghost"; g.alt = "";
+  Object.assign(g.style, {left:(r.left - ra.left) + "px", top:(r.top - ra.top) + "px", width:r.width + "px", height:r.height + "px", filter:`brightness(1.6) drop-shadow(0 0 6px ${col})`});
+  ar.appendChild(g); const a = g.animate([{opacity:op}, {opacity:0}], {duration:life, easing:"ease-out", fill:"forwards"}); a.onfinish = () => g.remove();
+}
+function kfxTrailOn(el, opt){ const id = setInterval(() => kfxGhost(el, opt), 34); return () => clearInterval(id); }
+function kfxFlash(col = "rgba(255,60,90,.35)", ms = 260){ const ar = $("#arena"); if (!ar) return; const f = document.createElement("div"); f.className = "kfx-flash"; f.style.background = col; ar.appendChild(f);
+  const a = f.animate([{opacity:1}, {opacity:0}], {duration:ms, easing:"ease-out", fill:"forwards"}); a.onfinish = () => f.remove(); }
+function kfxSpeedLines(y, dir = 1, col = "rgba(255,240,200,.85)"){
+  const ar = $("#arena"); if (!ar) return; const W = ar.clientWidth;
+  for (let i = 0; i < 9; i++) kfxEmit({k:"spark", x:dir > 0 ? W * (.15 + Math.random() * .3) : W * (.55 + Math.random() * .3), y:y + (Math.random() - .5) * 70, vx:dir * (14 + Math.random() * 10), vy:0, t:0, life:180, size:1.6, col, grav:0});
+}
+const dashDist = (a, b, f = .32) => { const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect(); return Math.max(0, (rb.left + rb.width * f) - (ra.left + ra.width * .62)); };
+let KAT = 0;   // jeton : une nouvelle attaque annule la précédente
+/* --- bonne réponse : Rumi fonce, frappe, revient --- */
 async function kfxAttack(romi, dm, {special = false, combo = 0} = {}){
-  const body = romi && romi.querySelector(".kdh-rumi"), mon = dm && dm.querySelector("img");
+  const body = romi && romi.querySelector(".kdh-rumi"), mon = rigOf(dm), tok = ++KAT;
+  if (!body || !dm) return;
+  const D = dashDist(romi, dm, special ? .2 : .3);
+  clearTimeout(KF.t);
+  // 1) anticipation : elle recule, se ramasse
   rumiAct("windup");
-  await (kfxAnim(body, [{transform:"none"}, {transform:"translateX(-6%) scale(1.06,.92)", offset:.7}, {transform:"translateX(-7%) scale(1.08,.9)"}], {duration:140, easing:"ease-out"}) || {}).finished;
+  await tw(body, {x:-D * .06 - 6, y:0, r:-4, sx:1.1, sy:.9}, 170, "p2o"); if (tok !== KAT) return;
+  // 2) élan : course éclair avec étirement, flou et traînée dorée
   rumiAct("run");
-  await (kfxAnim(body, [{transform:"translateX(-7%) scale(1.08,.9)"}, {transform:"translateX(14%) scale(.96,1.04)"}], {duration:130, easing:"ease-in"}) || {}).finished;
-  rumiAct("slash");
-  kfxAnim(body, [{transform:"translateX(-7%) scale(1.08,.9)"}, {transform:"translateX(22%) scale(.94,1.08)", offset:.35}, {transform:"translateX(16%) scale(1.02,.98)", offset:.7}, {transform:"none"}], {duration:520, easing:"cubic-bezier(.2,.9,.3,1.2)"});
-  await kfxProjectile(romi, dm, {big:special, ms:special ? 300 : 360});
+  const stop = kfxTrailOn(body);
+  const p0 = kfxLocal(romi, .5, .55); kfxSpeedLines(p0.y, 1);
+  await tw(body, {x:D * .78, y:special ? -D * .12 : -4, r:6, sx:1.2, sy:.86, b:1.6}, special ? 240 : 190, "expoI"); if (tok !== KAT) { stop(); return; }
+  // 3) le coup : image « slash », arrêt sur image, recul du monstre
+  rumiAct("slash"); stop();
+  await tw(body, {x:D, y:special ? -D * .16 : 0, r:-2, sx:.94, sy:1.06, b:0}, 70, "p2o");
   const p = kfxLocal(dm, .5, .5);
-  kfxSlash(p.x, p.y, {big:special}); kfxSparks(p.x, p.y, special ? 46 : 22, {sp:special ? 8 : 5});
-  if (special) kfxRing(p.x, p.y, {r:140});
-  if (combo >= 3) { kfxRing(p.x, p.y, {col:"#ff7ab8", r:60 + combo * 8, life:600}); }
-  // impact : petit arrêt sur image, écrasement du monstre, recul et rebond
-  kfxAnim(mon, [{transform:"none", filter:"brightness(3) saturate(0)"}, {transform:"translateX(10%) scale(.88,1.1)", offset:.25}, {transform:"translateX(-4%) scale(1.06,.95)", offset:.6}, {transform:"none", filter:"none"}], {duration:420, easing:"ease-out"});
-  kfxShake(special ? 10 : 5, special ? 380 : 260);
+  kfxSlash(p.x, p.y, {big:special}); kfxSparks(p.x, p.y, special ? 52 : 26, {sp:special ? 9 : 6}); kfxRing(p.x, p.y, {r:special ? 150 : 90});
+  if (combo >= 3) kfxRing(p.x, p.y, {col:"#ff7ab8", r:60 + combo * 8, life:600});
+  if (mon) tw(mon, {br:3, sx:.86, sy:1.1}, 40, "linear");
   kfxNum(dm, "-" + (special ? 25 : 10 + Math.floor(Math.random() * 6)), "gold", special ? 1.4 : 1 + Math.min(.4, combo * .05));
-  clearTimeout(KF.t); KF.t = setTimeout(() => rumiAct("idle"), 650);
+  await twWait(special ? 110 : 75);                       // arrêt sur image
+  kfxShake(special ? 12 : 7, special ? 380 : 260);
+  if (mon) tw(mon, {x:special ? 46 : 30, r:special ? 12 : 8, sx:1.06, sy:.94, br:1.6}, 110, "p2o").then(() => tw(mon, {x:0, r:0, sx:1, sy:1, br:1}, 620, "elasticO")).then(() => twReset(mon));
+  // 4) retour en arrière : petit saut, puis réception écrasée
+  await twWait(90); if (tok !== KAT) return;
+  rumiAct("run");
+  await tw(body, {x:D * .45, y:-22, r:-6, sx:.96, sy:1.05}, 170, "p2o"); if (tok !== KAT) return;
+  await tw(body, {x:0, y:0, r:0, sx:1.12, sy:.88}, 200, "p2i"); if (tok !== KAT) return;
+  rumiAct("idle");
+  await tw(body, {sx:1, sy:1}, 380, "elasticO"); if (tok !== KAT) return;
+  twReset(body);
+  kfxAssist(combo, romi, dm);
+}
+/* --- les amis à la rescousse --- */
+function kfxAssist(combo, romi, dm){
+  if (!combo || combo % 3) return;
+  const met = (typeof S === "object" && S.friends) ? S.friends : [];
+  if (combo % 6 === 0 && met.includes("zuma")) return kfxDragon(dm);
+  const who = met.length ? met[(combo / 3) % met.length] : null; if (!who) return;
+  return kfxFriend(who, dm);
+}
+async function kfxFriend(who, dm){
+  const ar = $("#arena"); if (!ar || !dm) return;
+  const el = document.createElement("div"); el.className = `kfx-assist as-${who}`;
+  el.innerHTML = rigHTML(`${who}-attack`, "kdh-as", "", "hero") + `<b class="as-name">${who === "zoe" ? "Zoé" : "Zuma"} !</b>`;
+  ar.appendChild(el); const w = el.getBoundingClientRect().width || 120, aw = ar.clientWidth;
+  el._tw = {...TW0, x:-w - 20}; el.style.transform = `translateX(${-w - 20}px)`;
+  sfx.whoosh && sfx.whoosh();
+  const stop = kfxTrailOn(el, {col:who === "zoe" ? "rgba(90,230,220,.9)" : "rgba(120,240,140,.9)"});
+  await tw(el, {x:aw * .2, sx:1.12, sy:.9, b:1.2}, 260, "expoO"); stop();
+  await tw(el, {sx:1, sy:1, b:0}, 160, "backO");
+  await kfxProjectile(el, dm, {col:who === "zoe" ? "#7ff5ec" : "#9bff8a", trail:who === "zoe" ? "#22c7c0" : "#2fbf5a", ms:300, big:true});
+  const p = kfxLocal(dm, .5, .5), mon = rigOf(dm);
+  kfxSparks(p.x, p.y, 34, {col:who === "zoe" ? ["#e0fffb", "#7ff5ec", "#ffd34d"] : ["#eaffe0", "#9bff8a", "#ffd34d"], sp:7}); kfxRing(p.x, p.y, {col:who === "zoe" ? "#7ff5ec" : "#9bff8a", r:110});
+  kfxShake(8, 280); kfxNum(dm, "-12", "gold", 1.15);
+  if (mon) tw(mon, {x:26, r:9, br:2}, 90, "p2o").then(() => tw(mon, {x:0, r:0, br:1}, 560, "elasticO")).then(() => twReset(mon));
+  await twWait(220);
+  await tw(el, {x:-w - 40, sx:1.1, sy:.92, o:.4}, 280, "expoI");
+  el.remove();
+}
+async function kfxDragon(dm){
+  const ar = $("#arena"); if (!ar || !dm) return;
+  const el = document.createElement("div"); el.className = "kfx-assist as-dragon";
+  el.innerHTML = rigHTML("zuma-dragon", "kdh-as", "", "dragon") + `<b class="as-name">Dragon de Zuma !</b>`;
+  ar.appendChild(el);
+  const aw = ar.clientWidth, w = el.getBoundingClientRect().width || 240, ah = ar.clientHeight, t0 = performance.now(), ms = 1500;
+  kfxFlash("rgba(120,255,160,.25)", 400); sfx.roar && sfx.roar();
+  return new Promise(res => {
+    let hit = false;
+    const step = now => {
+      const k = Math.min(1, (now - t0) / ms), e = Ease.p2io(k), x = -w + (aw + w * 1.2) * e, y = -ah * .1 + Math.sin(k * Math.PI * 2.2) * ah * .12;
+      el.style.transform = `translate(${x}px,${y}px) rotate(${Math.cos(k * Math.PI * 2.2) * -8}deg)`;
+      const fx = x + w * .78, fy = y + ah * .38;
+      for (let i = 0; i < 3; i++) kfxEmit({k:"spark", x:fx - Math.random() * w * .6, y:fy + (Math.random() - .5) * 40, vx:-2 - Math.random() * 3, vy:(Math.random() - .5) * 2, t:0, life:420, size:4 + Math.random() * 4, col:["#b6ff9e", "#ffd34d", "#5cf08a"][i], grav:-.02});
+      if (!hit && k > .5) { hit = true; const p = kfxLocal(dm, .5, .5), mon = rigOf(dm); kfxSparks(p.x, p.y, 80, {col:["#fff", "#b6ff9e", "#ffd34d"], sp:10, life:900}); kfxRing(p.x, p.y, {col:"#b6ff9e", r:180, life:700});
+        kfxShake(14, 500); kfxNum(dm, "-40", "gold", 1.6); if (mon) tw(mon, {x:40, r:14, br:3, sx:.9, sy:1.1}, 120, "p2o").then(() => tw(mon, {x:0, r:0, br:1, sx:1, sy:1}, 700, "elasticO")).then(() => twReset(mon)); }
+      if (k < 1) requestAnimationFrame(step); else { el.remove(); res(); }
+    };
+    requestAnimationFrame(step);
+  });
 }
 const monBase = mon => (mon && mon.getAttribute("src") || "").replace(/^.*\//, "").replace(/\.webp$/, "").replace(/-(idle|attack|purified)$/, "");
-function kfxHurt(dm, romi){
-  const mon = dm && dm.querySelector("img"), body = romi && romi.querySelector(".kdh-rumi");
-  if (mon) { const b = monBase(mon); sprPlay(mon, monFrames(b, "attack")); setTimeout(() => { if (!dm.classList.contains("happy")) sprPlay(mon, monFrames(b, "idle")); }, 700); }
-  kfxAnim(mon, [{transform:"none"}, {transform:"translateX(6%) scale(1.06,.94)", offset:.25}, {transform:"translateX(-24%) scale(.95,1.06)", offset:.55}, {transform:"none"}], {duration:520, easing:"ease-in-out"});
-  setTimeout(() => kfxProjectile(dm, romi, {col:"#c48bff", trail:"#7a2cff", ms:300}).then(() => {
-    const p = kfxLocal(romi, .5, .45); kfxSparks(p.x, p.y, 16, {col:["#e2b8ff", "#a24bff", "#7a2cff"], sp:4});
-    rumiAct("hurt"); kfxAnim(body, [{transform:"none"}, {transform:"translateX(-8%) rotate(-4deg)", offset:.2}, {transform:"translateX(5%) rotate(2deg)", offset:.45}, {transform:"translateX(-3%)", offset:.7}, {transform:"none"}], {duration:460});
-    clearTimeout(KF.t); KF.t = setTimeout(() => rumiAct("idle"), 900);
-  }), 120);
+/* --- mauvaise réponse : le monstre bondit sur Rumi --- */
+async function kfxHurt(dm, romi){
+  const mon = rigOf(dm), img = dm && dm.querySelector("img"), body = romi && romi.querySelector(".kdh-rumi"); if (!mon || !body) return;
+  const ra = romi.getBoundingClientRect(), rd = dm.getBoundingClientRect(), D = Math.max(0, rd.left - (ra.left + ra.width * .55));
+  if (img) { const b = monBase(img); sprPlay(img, monFrames(b, "attack")); }
+  // anticipation : il se recroqueville en arrière
+  await tw(mon, {x:16, y:2, r:6, sx:1.08, sy:.9}, 190, "p2o");
+  const stop = kfxTrailOn(mon, {col:"rgba(170,80,255,.9)", op:.45});
+  await tw(mon, {x:-D * .86, y:-10, r:-10, sx:1.16, sy:.88, b:1.4}, 190, "expoI"); stop();
+  // impact
+  kfxFlash(); kfxShake(9, 300);
+  const p = kfxLocal(romi, .55, .45); kfxSparks(p.x, p.y, 22, {col:["#e2b8ff", "#a24bff", "#ff4d6d"], sp:5}); kfxRing(p.x, p.y, {col:"#a24bff", r:70});
+  clearTimeout(KF.t); KAT++; rumiAct("hurt"); twReset(body);
+  tw(body, {x:-22, r:-7, sx:.94, sy:1.04}, 100, "p2o").then(() => tw(body, {x:0, r:0, sx:1, sy:1}, 560, "elasticO")).then(() => twReset(body));
+  await tw(mon, {x:-D * .74, y:0, r:-4, sx:.94, sy:1.06, b:0}, 90, "p2o");
+  await tw(mon, {x:0, y:0, r:0, sx:1, sy:1}, 420, "backO"); twReset(mon);
+  if (img && !dm.classList.contains("happy")) sprPlay(img, monFrames(monBase(img), "idle"));
+  KF.t = setTimeout(() => rumiAct("idle"), 600);
 }
+/* --- début de mission : Rumi arrive en courant --- */
 function kfxRunIn(romi){
   const body = romi && romi.querySelector(".kdh-rumi"); if (!body) return;
-  rumiAct("run");
-  const an = kfxAnim(body, [{transform:"translateX(-160%)"}, {transform:"translateX(8%)", offset:.8}, {transform:"translateX(-2%) scale(1.04,.96)", offset:.9}, {transform:"none"}], {duration:900, easing:"cubic-bezier(.3,.7,.4,1)"});
-  if (an) an.onfinish = () => rumiAct("idle"); else rumiAct("idle");
+  const W = ($("#arena") || romi).clientWidth;
+  rumiAct("run"); twReset(body); body._tw = {...TW0, x:-W * .45}; body.style.transform = "";
+  const stop = kfxTrailOn(body, {op:.3});
+  tw(body, {x:0, sx:1.08, sy:.92}, 760, "p3o").then(() => { stop(); const p = kfxLocal(romi, .5, .97); kfxSparks(p.x, p.y, 14, {col:["#fff6c8", "#e8d6ff"], sp:3, grav:.05}); rumiAct("idle"); return tw(body, {sx:1, sy:1}, 420, "elasticO"); }).then(() => twReset(body));
 }
+/* --- fin : purification --- */
 function kfxPurify(dm){
-  const mon = dm && dm.querySelector("img"); if (!mon) return;
+  const mon = rigOf(dm), img = dm && dm.querySelector("img"); if (!mon) return;
   const p = kfxLocal(dm, .5, .5);
-  kfxRing(p.x, p.y, {col:"#fff6c8", r:160, life:800}); kfxRing(p.x, p.y, {col:"#ff7ab8", r:110, life:700});
-  kfxSparks(p.x, p.y, 70, {col:["#fff", "#ffd34d", "#ff9ae0", "#9fe8ff"], sp:7, life:1100, grav:.05});
-  const base = monBase(mon);
-  kfxAnim(mon, [{transform:"none", filter:"brightness(1)"}, {transform:"scale(1.15,.85)", filter:"brightness(3)", offset:.3}, {transform:"scale(.92,1.1) translateY(-8%)", filter:"brightness(1.6)", offset:.6}, {transform:"none", filter:"brightness(1.1)"}], {duration:800, easing:"ease-out"});
-  setTimeout(() => sprPlay(mon, monFrames(base, "purified")), 260);
+  kfxRing(p.x, p.y, {col:"#fff6c8", r:170, life:800}); kfxRing(p.x, p.y, {col:"#ff7ab8", r:120, life:700});
+  kfxSparks(p.x, p.y, 80, {col:["#fff", "#ffd34d", "#ff9ae0", "#9fe8ff"], sp:7, life:1200, grav:.04});
+  tw(mon, {sx:1.18, sy:.84, br:3}, 160, "p2o").then(() => tw(mon, {sx:.9, sy:1.14, y:-18, br:1.8}, 220, "p2o")).then(() => tw(mon, {sx:1, sy:1, y:0, br:1.15}, 700, "elasticO"));
+  if (img) setTimeout(() => sprPlay(img, monFrames(monBase(img), "purified")), 260);
 }
 
 const FRIENDS = {
-  romi:{name:"Rumi", svg:() => romiSVG(outfit()), as:null, about:"Elle rend le sourire aux Grognons avec sa baguette étoilée."},
+  romi:{name:"Rumi", svg:() => romiSVG(outfit()), as:null, about:"Elle rend le sourire aux démons avec sa baguette étoilée."},
   zoe:{name:"Zoé", svg:zoeSVG, as:{p:1.2, r:.98}, world:2, about:"Sa copine de classe. Elle adore les livres et t'aide à lire les mots.",
     intro:["Bonjour ! Je m'appelle Zoé. J'adore les livres !", "Si un mot est difficile, appuie sur l'ampoule : je t'aiderai à le lire."]},
   zuma:{name:"Zuma", svg:zumaSVG, as:{p:1.7, r:1.08}, world:3, about:"Un petit dragon qui adore compter. Il t'aide pour les nombres.",
@@ -2960,7 +3311,9 @@ const FRIENDS = {
 
 /* ---------- Les Grognons : petits monstres ronchons (et un Grand Grognon menaçant à la fin de chaque monde) ---------- */
 const GROGNON_COLORS = ["#6f7bff","#ff5fa2","#a46bff","#3fd6c0","#ff8a5c","#39b8ff","#e45fff","#8f6bff","#ff6b8b","#5a8cff"];
-const GROGNON_NAMES = ["Ronchon","Bougon","Grincheux","Boudeur","Râleur","Brumeux","Chipoteur","Ronchonnot","Grognard","Pas-Content","Mollasson","Tête-en-l'air"];
+const GROGNON_NAMES = ["Kaïro","Vexil","Nyxa","Drazel","Moréna","Zekko","Ombrix","Sylvar","Kryss","Valtor","Nébra","Ryzo"];
+const BOSS_NAMES = ["Draknor","Maréva","Sylvox","Zarkhan","Lunéris","Noctaris"];
+const RIVAL = {band:"les Noctis", leader:"Vyrex", members:["Vyrex","Sorin","Jaxel","Morvan","Ziel"]};
 // mélange deux couleurs hex (t = part de b)
 function mixHex(a, b, t){
   const p = h => [1,3,5].map(i => parseInt(h.slice(i, i+2), 16)), A = p(a), B = p(b);
@@ -3032,7 +3385,7 @@ function grognonShapeSVG_old(shape, c, big, v = shape){
     <linearGradient id="sh${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#1a0b3d" stop-opacity=".35"/></linearGradient></defs>
     <circle cx="60" cy="68" r="${big ? 60 : 50}" fill="url(#au${u})"/><ellipse cx="60" cy="114" rx="${big ? 46 : 30}" ry="5" fill="#1a0b3d" opacity=".3"/><g class="body">${M.svg.replace(/<path d="M42 34 L44 18 L52 28 L60 12[^>]*\/><circle cx="60" cy="26" r="2.6" fill="#e8667f"\/>/, "")}<ellipse cx="60" cy="${fy + 8}" rx="${big ? 38 : 28}" ry="${big ? 40 : 32}" fill="url(#sh${u})" pointer-events="none"/>${marks}${gat}${monsterFace(cx, fy, eyes, r, fangs, big)}</g></svg>`;
 }
-const grognonName = m => isBoss(m) ? `Grand Grognon ${WORLDS[worldOf(m)-1].boss}` : `Grognon ${GROGNON_NAMES[(m-1) % GROGNON_NAMES.length]}`;
+const grognonName = m => isBoss(m) ? BOSS_NAMES[worldOf(m)-1] : GROGNON_NAMES[(m-1) % GROGNON_NAMES.length];
 const demonName = grognonName, demonSVG = m => grognonSVG(m, isBoss(m));
 const outfit = () => OUTFITS[S.outfit] || OUTFITS[0];
 function replay(el, cls){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
@@ -3735,20 +4088,20 @@ const CHAR_SPECS = [
   ...OUTFITS.map((o, i) => ({who:"romi", outfit:i, world:(i % 6) + 1, name:"Rumi", sub:o.name})),
   {who:"zoe", world:2, name:"Zoé", sub:"La lectrice"}, {who:"zoe", world:1, name:"Zoé", sub:"À l'école"}, {who:"zoe", world:6, name:"Zoé", sub:"Sous les étoiles"},
   {who:"zuma", world:3, name:"Zuma", sub:"Le petit dragon"}, {who:"zuma", world:4, name:"Zuma", sub:"Dans les Monts"}, {who:"zuma", world:5, name:"Zuma", sub:"Au jardin"},
-  ...WORLDS.map((W, i) => ({who:"boss", world:i + 1, m:(i + 1) * 10, name:"Grand Grognon", sub:W.boss.replace(/^(de la|des|du|de)\s/, m => m)})),
-  ...Array.from({length:10}, (_, s) => ({who:"grog", shape:s, color:GROGNON_COLORS[s], world:(s % 6) + 1, name:`Grognon ${GROGNON_NAMES[s]}`, sub:"Tout content"})),
+  ...WORLDS.map((W, i) => ({who:"boss", world:i + 1, m:(i + 1) * 10, name:BOSS_NAMES[i], sub:"Seigneur " + W.boss})),
+  ...Array.from({length:10}, (_, s) => ({who:"grog", shape:s, color:GROGNON_COLORS[s], world:(s % 6) + 1, name:GROGNON_NAMES[s], sub:"Tout content"})),
   {who:["romi","zoe"], world:2, name:"Rumi et Zoé", sub:"Copines de classe"},
   {who:["romi","zuma"], world:3, name:"Rumi et Zuma", sub:"Les explorateurs"},
   {who:["zoe","zuma"], world:5, name:"Zoé et Zuma", sub:"Au Jardin des Mots"},
   {who:["romi","zoe","zuma"], world:6, name:"Les trois amis", sub:"Le Ciel des Histoires"},
-  {who:["romi","grog"], world:1, shape:4, color:GROGNON_COLORS[4], name:"Rumi et le Grognon", sub:"Le premier sourire"}
+  {who:["romi","grog"], world:1, shape:4, color:GROGNON_COLORS[4], name:"Rumi et Nyxa", sub:"Le premier sourire"}
 ];
 const GOLD_SPECS = [
   {who:"romi", gold:true, name:"Rumi d'Or", sub:"Édition Or"},
   {who:"zoe", gold:true, name:"Zoé d'Or", sub:"Édition Or"},
   {who:"zuma", gold:true, name:"Zuma d'Or", sub:"Édition Or"},
   {who:["romi","zoe","zuma"], gold:true, name:"Le Trio d'Or", sub:"Édition Or"},
-  {who:"boss", m:60, gold:true, name:"Grognon d'Or", sub:"Édition Or"}
+  {who:"boss", m:60, gold:true, name:"Noctaris d'Or", sub:"Édition Or"}
 ];
 // Nouvelles cartes en or (ajoutées À LA FIN de la collection pour ne pas changer les numéros des cartes déjà gagnées)
 const GOLD_FITS = {
@@ -3769,9 +4122,9 @@ const GOLD2_SPECS = [
   {who:["romi","zoe"], go:"rose", world:2, name:"Duo Or rose", sub:"Édition Or"},
   {who:["romi","zuma"], go:"arc", world:3, name:"Duo Prisme", sub:"Édition Or"},
   {who:["zoe","zuma"], world:5, name:"Duo Doré", sub:"Édition Or"},
-  {who:"grog", shape:2, color:"#f2c14e", world:1, name:"Grognon Doré", sub:"Tout content"},
-  {who:"grog", shape:7, color:"#ffcf5c", world:5, name:"Grognon Miel", sub:"Tout content"},
-  {who:"boss", m:30, world:3, name:"Grognon Roi", sub:"Édition Or"},
+  {who:"grog", shape:2, color:"#f2c14e", world:1, name:"Démon Doré", sub:"Tout content"},
+  {who:"grog", shape:7, color:"#ffcf5c", world:5, name:"Démon Miel", sub:"Tout content"},
+  {who:"boss", m:30, world:3, name:"Sylvox Roi", sub:"Édition Or"},
   {who:["romi","zoe","zuma"], go:"lune", world:6, name:"Trio Étoilé", sub:"Édition Or"}
 ].map(c => ({...c, gold:true}));
 // 20 cartes Étincelle (spéciales) : gagnées seulement au Défi minute. Lettres magiques + héros argent et rose.
@@ -3971,7 +4324,7 @@ function show(id, opts = {}){
   $$(".view").forEach(v => v.hidden = v.id !== id);
   const v = $("#" + id); replay(v, "in");
   curView = id;
-  if (id !== "vGame") { Music.setTrack("main"); hideHelper(); }
+  if (id !== "vGame") { Music.calm(false); Music.setTrack("main"); hideHelper(); }
   if (id === "vHome") renderHome();
   if (id === "vMap") renderMap(opts);
   if (id === "vAlbum") renderAlbum();
@@ -4024,7 +4377,7 @@ function renderMap(opts = {}){
       const x = Math.round(Math.sin(i * 1.05 + w) * 58);
       const cls = ["node", stars >= 2 ? "done" : "", locked ? "locked" : "", m === cur ? "current" : "", boss ? "boss" : ""].join(" ");
       const label = boss ? `<span class="demon-box ${stars >= 2 ? "happy" : ""}" style="--sat:${locked ? .15 : .5}">${grognonSVG(m, true)}</span>` : (locked ? ic("lock") : m);
-      html += `<button class="${cls}" style="--x:${x}px" data-m="${m}" aria-label="Mission ${m}${boss ? ", Grand Grognon" : ""}${locked ? ", verrouillée" : ""}">
+      html += `<button class="${cls}" style="--x:${x}px" data-m="${m}" aria-label="Mission ${m}${boss ? ", Seigneur démon" : ""}${locked ? ", verrouillée" : ""}">
         <span class="disc">${label}</span><span class="st">${locked ? "" : [1,2,3].map(k => starSVG(k <= stars)).join("")}</span>
         ${m === cur ? `<span class="me romi-box">${romiSVG(outfit())}</span>` : ""}</button>`;
     }
@@ -4075,8 +4428,11 @@ async function travelTo(from, to){
 }
 
 /* ================= Nouveau monde, nouvelle rencontre ================= */
+const RIVAL_LINES = {1:"Ha ha ! Moi, c'est Vyrex, le chef des Noctis. Mes démons t'attendent !", 2:"Encore toi, Rumi ? Mes démons de la Baie vont te mouiller les pieds !",
+  3:"Vyrex est de retour ! Dans la forêt, tes syllabes vont s'emmêler !", 4:"Les Noctis règnent sur les Monts ! Tu sais compter jusqu'à ma victoire ?",
+  5:"Mon jardin de démons va pousser plus vite que tes mots !", 6:"Dernier concert, Rumi ! Noctaris et moi, on t'attend dans les étoiles !"};
 const WORLD_TALK = {
-  1:{who:"romi", lines:["Bienvenue dans la Prairie des Lettres !", "Les Grognons ont perdu leurs couleurs. Réponds bien, et ma baguette leur rendra le sourire."]},
+  1:{who:"romi", lines:["Bienvenue dans la Prairie des Lettres !", "Les démons ont volé les couleurs du monde. Réponds bien, et ma baguette leur rendra le sourire."]},
   2:{who:"zoe", newcomer:true},
   3:{who:"zuma", newcomer:true},
   4:{who:"zuma", lines:["Voici les Monts des Nombres ! Ici, on compte, on range et on additionne.", "On grimpe ensemble, une marche après l'autre."]},
@@ -4086,13 +4442,13 @@ const WORLD_TALK = {
 function showWorldIntro(w){
   return new Promise(resolve => {
     const W = WORLDS[w-1], T = WORLD_TALK[w], who = T.who, F = who === "romi" ? FRIENDS.romi : FRIENDS[who];
-    const lines = T.lines || F.intro;
+    const lines = [...(T.lines || F.intro), RIVAL_LINES[w]];
     if (T.newcomer && !S.friends.includes(who)) S.friends.push(who);
     const cast = [`<div class="romi-box">${romiSVG(outfit())}</div>`]
       .concat(metFriends().map(k => `<div class="friend-box ${T.newcomer && k === who ? "newcomer" : ""}">${FRIENDS[k].svg()}</div>`));
     const sc = $("#wiScene");
     sc.style.setProperty("--wi1", W.sky[0]); sc.style.setProperty("--wi2", W.sky[1]);
-    sc.innerHTML = landSVG(w, "land") + `<div class="wi-chars">${cast.join("")}</div><div class="kdh-rival" aria-hidden="true"><i class="rv-sh"></i><i class="rv-sh rv-b"></i>${artImg("rival-1-leader-idle", "kdh-rv")}<span class="rv-say">Hé hé… mes Grognons t'attendent !</span></div>`;
+    sc.innerHTML = landSVG(w, "land") + `<div class="wi-chars">${cast.join("")}</div><div class="kdh-rival" aria-hidden="true"><i class="rv-sh"></i><i class="rv-sh rv-b"></i>${artImg("rival-1-leader-idle", "kdh-rv")}<span class="rv-say">Vyrex · chef des Noctis</span></div>`;
     $("#wiKicker").textContent = T.newcomer ? `Monde ${w} · Nouvelle amie` : `Monde ${w}`;
     if (who === "zuma" && T.newcomer) $("#wiKicker").textContent = `Monde ${w} · Nouvel ami`;
     $("#wiTitle").textContent = W.name;
@@ -4131,7 +4487,7 @@ async function startMission(m){
   show("vGame");
   const c = S.cur;
   Q = null;
-  $("#mTitle").textContent = `Mission ${m}` + (isBoss(m) ? " · Grand Grognon" : ` · Monde ${w}`);
+  $("#mTitle").textContent = `Mission ${m}` + (isBoss(m) ? ` · ${grognonName(m)}` : ` · Monde ${w}`);
   Music.setTrack(isBoss(m) ? "boss" : "main");
   $("#arenaLand").innerHTML = landSVG(w, "");
   $("#gRomi").innerHTML = romiSVG(outfit());
@@ -4145,8 +4501,8 @@ async function startMission(m){
   $("#prompt").innerHTML = ""; $("#choices").innerHTML = "";
   if (c.idx === 0) {
     missionCard(m);
-    await nvWait(say(isBoss(m) ? [`Mission ${m}. Attention… voici le ${grognonName(m)} !`, "C'est le grand chef des Grognons. Toutes tes bonnes réponses vont le combattre !"]
-      : [`Mission ${m}.`, `Aidons le ${grognonName(m)} à retrouver le sourire !`]).catch(() => {}), 7000);
+    await nvWait(say(isBoss(m) ? [`Mission ${m}. Attention… voici ${grognonName(m)} !`, "C'est le seigneur des démons de ce monde. Toutes tes bonnes réponses vont le combattre !"]
+      : [`Mission ${m}.`, `Aidons ${grognonName(m)} à retrouver le sourire !`]).catch(() => {}), 7000);
     if (S.cur === c && curView === "vGame" && !Q) nextQ();
   } else nextQ();
 }
@@ -4220,6 +4576,7 @@ function qDiff(t){
 }
 function render(q){
   Q = q; qErr = 0; busy = false; countN = 0;
+  try { Music.calm(/sound|letter|syllable|clap|rhyme|prononce|dict|listen|ecoute/i.test(q.type || "")); } catch(e) {}
   if (q.mode === "order") q.placed = [];
   $("#prompt").innerHTML = `<div class="pv-fit"><div class="prompt-visual enter">${q.visual}</div></div><div class="caption">${q.caption}</div>`;
   requestAnimationFrame(fitPrompt);
@@ -4423,7 +4780,7 @@ async function onRight(btn){
     await wait(450);
     if (isBoss(c.m)) { replay($("#arena"), "shake-big"); sfx.boom(); const ko = document.createElement("div"); ko.className = "pow ko"; ko.textContent = "K.O. !"; $("#arena").appendChild(ko); setTimeout(() => ko.remove(), 1800); $("#arena").classList.remove("boss-arena"); Music.setTrack("main"); }
     dm.classList.add("happy"); sfx.ko(); burstAt(dm, 40); replay(romi, "dance"); clearTimeout(KF.t); rumiAct("victory"); kfxPurify(dm);
-    say([`Bravo ! Le ${grognonName(c.m)} a retrouvé le sourire !`]);
+    say([`Bravo ! ${grognonName(c.m)} a retrouvé le sourire !`]);
     await wait(2000);
     return finishMission();
   }
@@ -4764,7 +5121,7 @@ $("#friendsGrid").addEventListener("click", e => {
   const b = e.target.closest(".friend"); if (!b || b.classList.contains("locked")) return;
   const k = b.dataset.f, F = FRIENDS[k];
   sfx.tap(); replay(b.querySelector(".pv"), "spin");
-  if (k === "romi") say(["Bonjour, je suis Rumi ! On rend le sourire aux Grognons ?"]);
+  if (k === "romi") say(["Bonjour, je suis Rumi ! On rend le sourire aux démons ?"]);
   else say([F.intro[0]], {as: F.as});
 });
 
@@ -4782,7 +5139,7 @@ $$("[data-go]").forEach(b => b.addEventListener("click", () => { sfx.tap(); stop
 $$(".music-btn").forEach(b => b.addEventListener("click", () => { audio(); setMusic(!S.music); save(); }));
 $("#homeRomi").addEventListener("click", () => {
   replay($("#homeRomi"), "spin"); sfx.combo();
-  say([pick(["Bonjour ! On rend le sourire aux Grognons ?", "Je suis Rumi. Prête à lire avec moi ?", "Coucou ! On fait une mission ?"])]);
+  say([pick(["Bonjour ! On rend le sourire aux démons ?", "Je suis Rumi. Prête à lire avec moi ?", "Coucou ! On fait une mission ?"])]);
 });
 /* ================= Espace parent (appui long) ================= */
 let gearT = 0, gearStart = 0;
@@ -6098,7 +6455,7 @@ Object.assign(GEN, {
 
 /* ================= Cartes en 3D : elles penchent sous le doigt (ou en inclinant le téléphone),
    les plans du décor bougent à des vitesses différentes (effet de profondeur), et la lumière glisse dessus ================= */
-function tiltSet(card, x, y){
+function tiltSet(card, x, y){ return; // v5 : plus d'effet 3D sur les cartes
   card.classList.add("tilting");
   card.style.setProperty("--rx", ((x - .5) * 26).toFixed(1) + "deg");
   card.style.setProperty("--ry", ((.5 - y) * 22).toFixed(1) + "deg");
@@ -6801,9 +7158,9 @@ $("#shopBody").addEventListener("click", e => {
 /* =============== 2. JOUER À LA MARCHANDE =============== */
 const CUSTOMERS = [
   {n:"Zoé", av:() => zoeSVG()}, {n:"Zuma", av:() => zumaSVG()},
-  {n:"Grognon Ronchon", av:() => `<div class="demon-box happy" style="--sat:1">${grognonShapeSVG(0, GROGNON_COLORS[0], false)}</div>`},
-  {n:"Grognon Bougon", av:() => `<div class="demon-box happy" style="--sat:1">${grognonShapeSVG(5, GROGNON_COLORS[5], false)}</div>`},
-  {n:"Grognon Brumeux", av:() => `<div class="demon-box happy" style="--sat:1">${grognonShapeSVG(7, GROGNON_COLORS[7], false)}</div>`}
+  {n:"Kaïro", av:() => `<div class="demon-box happy" style="--sat:1">${grognonShapeSVG(0, GROGNON_COLORS[0], false)}</div>`},
+  {n:"Zekko", av:() => `<div class="demon-box happy" style="--sat:1">${grognonShapeSVG(5, GROGNON_COLORS[5], false)}</div>`},
+  {n:"Sylvar", av:() => `<div class="demon-box happy" style="--sat:1">${grognonShapeSVG(7, GROGNON_COLORS[7], false)}</div>`}
 ];
 const CS = {served:0, cust:null, items:[], total:0, step:"", given:[], back:[], pays:0};
 function openCaisse(){
@@ -7143,13 +7500,14 @@ function say(parts, opts = {}){
   parts = [].concat(parts).filter(Boolean);
   if (!parts.length) return Promise.resolve();
   voiceMigrate();
-  if (recCan(parts)) {
+  const plan = recPlan(parts);
+  if (plan) {
     const token = ++speakToken;
     if (hasTTS) speechSynthesis.cancel();
     nvStop(); if (REC.el) { try { REC.el.pause(); } catch(e) {} }
-    return recSay(parts, opts, token);
+    return recSay(parts, opts, token, plan);
   }
-  if (!nvOn() || nvAvoid(parts)) return saySys(parts, opts);
+  if (S.voiceEngine === "system" || !nvOn() || nvAvoid(parts)) return saySys(parts, opts);
   const token = ++speakToken;
   if (hasTTS) speechSynthesis.cancel();
   nvStop(); nvDropUrgent();
@@ -7207,7 +7565,7 @@ function nvUI(){
   btn.textContent = S.nvOk ? "Préparer la voix maintenant" : "Télécharger la voix naturelle";
   segSet("nvSeg", S.voiceEngine === "system" ? "system" : S.voiceEngine === "neural" ? "neural" : "rec");
   $("#recRow").hidden = S.voiceEngine !== "rec";
-  if (S.voiceEngine === "rec") { st.textContent = REC.idx ? "Voix enregistrée : une seule voix claire et naturelle pour tout le jeu (la voix du téléphone ne sert que pour quelques phrases rares)." : "Voix enregistrée : chargement de la liste des phrases…"; $("#nvLoad").hidden = true; $("#nvVoiceRow").hidden = true; $("#sysVoice").hidden = false; }
+  if (S.voiceEngine === "rec") { st.textContent = REC.idx ? "Voix naturelle de Rumi : la même voix claire pour tout le jeu, y compris les phrases avec des nombres et des prénoms (et une voix anglaise naturelle pour English)." : "Voix enregistrée : chargement de la liste des phrases…"; $("#nvLoad").hidden = true; $("#nvVoiceRow").hidden = true; $("#sysVoice").hidden = false; }
   segSet("nvVoiceSeg", NV_VOICES.includes(S.nvVoice) ? S.nvVoice : "F1");
   $("#nvVoiceRow").hidden = !nvOn();
   $("#nvSyl").parentElement.hidden = true;
@@ -8371,9 +8729,12 @@ function enPickVoice(){
 if (hasTTS) speechSynthesis.addEventListener && speechSynthesis.addEventListener("voiceschanged", enPickVoice);
 // Une suite de morceaux, en français ou en anglais : [{t:"Le chat, en anglais :"}, {t:"cat", en:true}]
 function enSay(parts, {onPart} = {}){
-  if (!hasTTS) return Promise.resolve();
   parts = parts.map(p => typeof p === "string" ? {t:p} : p).filter(p => p && p.t);
   if (!parts.length) return Promise.resolve();
+  voiceMigrate();
+  const plan = recPlan(parts);
+  if (plan) { const token = ++speakToken; if (hasTTS) speechSynthesis.cancel(); nvStop(); if (REC.el) { try { REC.el.pause(); } catch(e) {} } return recSay(parts, {onPart}, token, plan); }
+  if (!hasTTS) return Promise.resolve();
   if (!enV) enPickVoice();
   const token = ++speakToken;
   speechSynthesis.cancel(); nvStop();
