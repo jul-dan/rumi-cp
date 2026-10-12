@@ -407,7 +407,7 @@ body.speaking .speak-btn{animation:speakPulse 1.3s ease-in-out infinite}
 @keyframes micPulse{50%{box-shadow:0 6px 0 var(--accent-d),0 0 0 16px rgba(224,87,122,.16)}}
 .mic-btn.right{background:var(--good);box-shadow:0 6px 0 #1f7a53}
 .mic-side{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0;max-width:26ch}
-.mic-status{font-size:clamp(14px,2.1dvh,17px);color:var(--ink-2);line-height:1.3;text-align:left}
+.mic-status{font-size:clamp(14px,2.1dvh,17px);color:#fff4dc;text-shadow:0 1px 3px rgba(20,8,40,.8);font-weight:700;line-height:1.3;text-align:left}
 
 /* ---------- feuilles (fin de mission, niveau, monde) ---------- */
 .overlay{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;
@@ -2136,10 +2136,18 @@ function sanitize(o){
   if (o && o.cardsV !== 2) { const n = Object.values(s.cards).reduce((a,b) => a + (+b || 0), 0); s.boosters += Math.ceil(n / 5); s.cards = {}; s.cardsV = 2; }
   return s;
 }
+addEventListener("error", e => { try { console.warn("[romi]", e.message); } catch(_) {} });
+document.addEventListener("visibilitychange", () => {   // onglet caché : la musique s'arrête (batterie des tablettes), elle repart au retour
+  try { if (document.hidden) { musicHold._m = Music.state.on; if (musicHold._m) Music.stop(); } else if (musicHold._m) { musicHold._m = false; Music.start(); } } catch(_) {}
+});
+function musicHold(){}
+addEventListener("unhandledrejection", e => { try { e.preventDefault(); } catch(_) {} });
 (function loadLocal(){
   try {
-    const raw = localStorage.getItem(KEY);
-    if (raw) { S = sanitize(JSON.parse(raw)); return; }
+    let raw = localStorage.getItem(KEY), parsed = null;
+    try { parsed = raw && JSON.parse(raw); } catch(e) { parsed = null; }
+    if (!parsed) { try { parsed = JSON.parse(localStorage.getItem(KEY + "-bak") || "null"); } catch(e) { parsed = null; } }   // sauvegarde abîmée : on reprend la copie de secours
+    if (parsed) { S = sanitize(parsed); return; }
     const old = JSON.parse(localStorage.getItem("romi-cp-v1") || "null");   // ancienne version : on garde ses progrès
     if (old && old.xp > 0) {
       S.xp = old.xp;
@@ -2152,7 +2160,7 @@ function sanitize(o){
 let remoteRef = null, remoteBusy = false, remotePending = false, remoteTimer = 0;
 function save(){
   S.updatedAt = Date.now();
-  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {}
+  try { const j = JSON.stringify(S); localStorage.setItem(KEY, j); if (Date.now() - (save._bak||0) > 30000) { localStorage.setItem(KEY + "-bak", j); save._bak = Date.now(); } } catch(e) {}
   clearTimeout(remoteTimer); remoteTimer = setTimeout(writeRemote, 1000);
 }
 async function writeRemote(){
@@ -2330,7 +2338,7 @@ document.addEventListener("pointerdown", function recUnlock(){
 }, true);
 async function recDownloadAll(onProg){
   if (!REC.idx || !("caches" in window)) return false;
-  const keys = [...new Set([...Object.values(REC.idx), ...Object.values(RECEN.idx || {}).map(k => "en/" + k)])], c = await caches.open("romi-audio");
+  const keys = [...new Set([...Object.values(REC.idx), ...Object.values(RECEN.idx || {}).map(k => "en/" + k)])], c = await caches.open("romi-audio2");
   let n = 0;
   for (let i = 0; i < keys.length; i += 8) {
     await Promise.all(keys.slice(i, i + 8).map(async k => { const u = new URL(`audio/${k}.mp3`, location.href).href; if (!(await c.match(u))) { try { const r = await fetch(u); if (r.ok) await c.put(u, r); } catch(e) {} } n++; }));
@@ -2546,13 +2554,13 @@ function listen(onState){
       return out;
     };
     try {
-      r = new SR(); r.lang = "fr-FR"; r.interimResults = true; r.maxAlternatives = 5; r.continuous = false;
+      r = new SR(); r.lang = "fr-FR"; r.interimResults = true; r.maxAlternatives = 10; r.continuous = false;
       r.onaudiostart = () => { audio = true; onState && onState("ready"); };
       r.onsoundstart = r.onspeechstart = () => { if (!heard) { heard = true; onState && onState("voice"); } };
       r.onresult = e => {
         try {
           const alts = read(e.results);
-          if (alts.length) { best = alts; heard = true; }
+          if (alts.length) { best = [...new Set([...alts, ...best])].slice(0, 30); heard = true; }
           const last = e.results[e.results.length-1];
           if (last && last.isFinal && best.length) finish({alts:best});
         } catch(err) {}
@@ -2661,7 +2669,45 @@ function phSame(a, b, strict){
   return PH_PAIRS.some(([x, y]) => ((a === x && b === y) || (a === y && b === x)) && !(strict && strict.includes(x) && strict.includes(y)));
 }
 const phStarts = (q, T, strict) => q.length >= T.length && [...T].every((c, i) => phSame(q[i], c, strict));
+/* ================= v6 : reconnaissance indulgente des syllabes =================
+   La reconnaissance vocale écrit des MOTS : « oi » devient « wa », « quoi », « moi »… On accepte donc
+   les homophones et variantes connues, les mots qui contiennent le son, et une petite distance phonétique. */
+const SYL_VAR = {
+  oi:["oi","ois","oie","oies","oit","wa","whoa","ouah","oua","quoi","moi","toi","voix","roi","loi","foi","soi","boa","w a","doigt","noix"],
+  oua:["oua","wa","ouah","oie","oi","quoi","moi","toi","w a","ouate"], ouah:["oua","wa","oi"],
+  ou:["ou","où","oup","houx","hou","ouh","oo","août","loup","nous","vous","sous","tout","bout","cou","fou"],
+  on:["on","ont","om","non","oh","son","bon","ton","mon","rond","nom","hon","onc"],
+  an:["an","en","ant","ans","temps","han","hans","banc","dans","sans","vent","cent","sang","quand","camp"],
+  en:["an","en","ant","ans","temps","han","dans","sans","vent","cent"],
+  in:["in","un","hein","ain","vingt","vin","pain","main","fin","1"], un:["un","in","hein","1"], ain:["in","un","hein","main","pain"],
+  eu:["eu","euh","heu","œufs","deux","feu","jeu","peu","bleu"], oeu:["eu","euh","heu","œuf"],
+  ai:["ai","et","est","hé","eh","haie","aie","ès","mais","lait","fait"], ei:["ai","et","est","hé","eh"],
+  au:["o","oh","eau","au","haut","os","ô","ho","beau","mot"], eau:["o","oh","eau","au","haut","ô","ho"], o:["o","oh","eau","au","haut","ô","ho","os"],
+  a:["a","à","ah","ha","as"], i:["i","y","hi","il","ile","lit"], u:["u","hu","eu","hue","tu","vu"], é:["é","et","hé","ai","les","des","eh"], e:["e","eu","euh","le","heu"],
+  ch:["ch","chut","che"], gn:["gn","nie"], ill:["ille","fille","bille","ill","y"], ui:["ui","huit","8","lui","nuit","oui"], ien:["ien","bien","rien","chien"]
+};
+const deacc = x => String(x).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+const phonW = x => phon(x).replace(/u(?=[aeiyoAOIE])/g, "w").replace(/^h/, "");
+function sylLenient(alts, target){
+  if (!alts || !alts.length || !target) return false;
+  const tg = deacc(target), vars = (SYL_VAR[tg] || SYL_VAR[String(target).toLowerCase()] || []).map(deacc), T = phonW(target);
+  for (const a0 of alts) {
+    const a = deacc(a0); if (!a) continue;
+    const words = a.split(" ").filter(Boolean); if (words.length > 5) continue;
+    const glued = words.join("");
+    if (words.includes(tg) || glued === tg || vars.includes(a) || words.some(w => vars.includes(w))) return true;
+    if (words.length <= 3) {
+      if (words.some(w => w.length <= tg.length + 3 && w.includes(tg) && tg.length >= 2)) return true;      // « ouah » ⊃ « oua »
+      const ph = words.map(phonW), all = ph.join("");
+      if (T && (ph.includes(T) || all === T)) return true;
+      if (T && T.length >= 2 && ph.some(q => q.length <= T.length + 2 && q.includes(T))) return true;    // « quoi » = kwa ⊃ wa
+      if (T && T.length >= 3 && (ph.some(q => lev(q, T) <= 1) || lev(all, T) <= 1)) return true;
+    }
+  }
+  return false;
+}
 function heardOK(alts, target, syl, strict){
+  if (syl && sylLenient(alts, target)) return true;
   const T = phon(target);
   if (!T) return false;
   return alts.some(a => {
@@ -3057,7 +3103,7 @@ function sprPlay(img, frames, {fps = 8, loop = false} = {}){
   const prev = KFX.sprites.get(img); if (prev) clearInterval(prev);
   let i = 0; const set = () => rigSet(img, `${ART}${frames[i]}.webp`);
   set();
-  if (frames.length > 1) KFX.sprites.set(img, setInterval(() => { i++; if (i >= frames.length) { if (!loop) { clearInterval(KFX.sprites.get(img)); return; } i = 0; } set(); }, 1000 / fps));
+  if (frames.length > 1) KFX.sprites.set(img, setInterval(() => { if (!img.isConnected) { clearInterval(KFX.sprites.get(img)); KFX.sprites.delete(img); return; } i++; if (i >= frames.length) { if (!loop) { clearInterval(KFX.sprites.get(img)); return; } i = 0; } set(); }, 1000 / fps));
 }
 function rumiAct(action){
   const o = (typeof outfit === "function") ? OUTFITS.indexOf(outfit()) : 0, A = RUMI_ACTIONS[action] || RUMI_ACTIONS.idle;
@@ -3171,7 +3217,7 @@ function kfxGhost(el, {col = "rgba(255,214,110,.9)", life = 240, op = .5} = {}){
   Object.assign(g.style, {left:(r.left - ra.left) + "px", top:(r.top - ra.top) + "px", width:r.width + "px", height:r.height + "px", filter:`brightness(1.6) drop-shadow(0 0 6px ${col})`});
   ar.appendChild(g); const a = g.animate([{opacity:op}, {opacity:0}], {duration:life, easing:"ease-out", fill:"forwards"}); a.onfinish = () => g.remove();
 }
-function kfxTrailOn(el, opt){ const id = setInterval(() => kfxGhost(el, opt), 34); return () => clearInterval(id); }
+function kfxTrailOn(el, opt){ const t0 = performance.now(); const id = setInterval(() => { if (!el || !el.isConnected || document.hidden || performance.now() - t0 > 2500) return clearInterval(id); kfxGhost(el, opt); }, 34); return () => clearInterval(id); }
 function kfxFlash(col = "rgba(255,60,90,.35)", ms = 260){ const ar = $("#arena"); if (!ar) return; const f = document.createElement("div"); f.className = "kfx-flash"; f.style.background = col; ar.appendChild(f);
   const a = f.animate([{opacity:1}, {opacity:0}], {duration:ms, easing:"ease-out", fill:"forwards"}); a.onfinish = () => f.remove(); }
 function kfxSpeedLines(y, dir = 1, col = "rgba(255,240,200,.85)"){
@@ -4239,9 +4285,9 @@ function packSVG(kind = "normal"){
 // Les cartes-mots privilégient les mots qu'elle a réussi à lire ; les cartes manquantes sortent plus souvent.
 function rollRarity(slot){
   const r = Math.random();
-  // une carte en or : environ un paquet sur 30 (avant : un sur 12)
-  if (slot === 4) return r < .028 ? "sr" : r < .9 ? "rare" : "common";
-  return r < .0015 ? "sr" : r < .1 ? "rare" : "common";
+  // une carte en or : environ un paquet sur 17 (v6 ; avant : un sur 30)
+  if (slot === 4) return r < .05 ? "sr" : r < .9 ? "rare" : "common";
+  return r < .0025 ? "sr" : r < .1 ? "rare" : "common";
 }
 function drawPack(){
   const taken = new Set(), out = [];
@@ -4297,7 +4343,7 @@ function drawEnglish(unit){
   const firstEver = !CARDS.some(c => c.en && c.rarity !== "common" && S.cards[c.id]) && !S.en.packsOpened;
   for (let i = 0; i < 5; i++) {
     const r = Math.random(); let rar = "common";
-    if (i === 4) rar = firstEver ? "rare" : r < .03 ? "sr" : r < .32 ? "rare" : "common";
+    if (i === 4) rar = firstEver ? "rare" : r < .053 ? "sr" : r < .32 ? "rare" : "common";
     let pool = rar === "common" ? (i < 3 && unit ? words.filter(c => c.unit === unit) : words) : CARDS.filter(c => c.en && c.rarity === rar);
     let c = pickFrom(pool, taken) || pickFrom(words, taken) || pickFrom(CARDS.filter(c => c.kind === "en"), taken);
     taken.add(c.id); out.push(c);
@@ -4653,7 +4699,7 @@ $("#choices").addEventListener("click", e => {
     const t = e.target.closest("button"); if (!t) return;
     if (t.id === "micBtn") return doListen(t);
     if (t.id === "modelBtn") { sfx.tap(); return hint(); }
-    if (t.id === "saidBtn" || t.id === "adultOk") return onRight(t);
+    if (t.id === "saidBtn" || t.id === "adultOk") { adultValidate(); return onRight(t); }
     return;
   }
   if (Q.mode === "mirror") { const t = e.target.closest("button"); if (t) mirrorClick(t); return; }
@@ -4790,6 +4836,8 @@ async function onRight(btn){
 /* ---------- lecture à voix haute ---------- */
 // Prononciation jugée : oui / non (piège) / redis-le
 let unkCount = 0;
+// L'adulte valide : réussite complète (verte, points, série), comme une bonne réponse normale
+function adultValidate(){ qErr = 0; unkCount = 0; if (Q) Q._miss = 0; $$("#choices .wrong").forEach(x => x.classList.remove("wrong")); }
 async function judgeOutcome(btn, alts){
   const r = judge(alts, Q.target, Q.traps || []);
   if (r.v === "ok") { unkCount = 0; setStatus(`Bravo : « ${Q.target} » !`); onRight(btn); return; }
@@ -4858,6 +4906,10 @@ async function doListen(btn){
   if (!S.micOk) { S.micOk = true; save(); }
   if (Q.judge) return judgeOutcome(btn, alts);
   if (heardOK(alts, Q.target, Q.syl)) { setStatus(`« ${alts[0]} »`); onRight(btn); return; }
+  // pas reconnu : on redemande gentiment (sans pénalité) les deux premières fois
+  Q._miss = (Q._miss || 0) + 1;
+  { const a = $("#adultOk"); if (a) a.hidden = false; }
+  if (Q._miss <= 2) { setStatus(`J'ai entendu « ${alts[0]} ». Redis-le, bien fort !`); say(["Je n'ai pas bien entendu. Redis-le, bien fort !"]); return; }
   setStatus(`J'ai entendu : « ${alts[0]} »`); sfx.soft(); markError();
   if (qErr >= 2) { const a = $("#adultOk"); if (a) a.hidden = false; await say(["Presque ! Écoute bien, et répète après moi."]); hint(); }
   else say([pick(SOFT)]);
@@ -5544,7 +5596,7 @@ function startTurn(){
   if (R.tapMode) { R.ms = "tap"; setCardState("tap"); micState("tap"); return; }
   R.ms = "arming"; R.armT = performance.now(); setCardState("arming"); micState("wait");
   let r;
-  try { r = new SR(); r.lang = "fr-FR"; r.interimResults = true; r.maxAlternatives = 5; r.continuous = false; }
+  try { r = new SR(); r.lang = "fr-FR"; r.interimResults = true; r.maxAlternatives = 10; r.continuous = false; }
   catch(e) { return rushToAdult(); }
   R.rec = r;
   let done = false, last = [];
@@ -6435,6 +6487,7 @@ function judge(alts, target, traps){
   const anyT = all.some(x => x.T), anyTrap = all.find(x => x.trap);
   if (anyT && !anyTrap && !top.trap) return {v:"ok"};
   if (anyTrap && !anyT && !top.T) return {v:"trap", heard:anyTrap.trap};
+  if (!top.trap && !anyTrap && sylLenient(alts, target)) return {v:"ok"};
   return {v:"unk"};
 }
 // Grammaire pour le modèle sur l'appareil : la bonne syllabe et ses pièges, rien d'autre
@@ -9051,6 +9104,15 @@ $("#enBody").addEventListener("click", e => {
 <script>
 if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
   addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+  // nouvelle version installée : on recharge tout seul, mais jamais au milieu d'une partie
+  let swReload = false;
+  const hadCtl = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (!hadCtl || swReload) return; swReload = true;
+    const go = () => { if (curView === "vGame") return setTimeout(go, 3000); try { save(); } catch(e) {} location.reload(); };
+    go();
+  });
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") navigator.serviceWorker.getRegistration().then(r => r && r.update()).catch(() => {}); });
 }
 </script>
 </body>
