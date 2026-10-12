@@ -1,0 +1,45 @@
+RUMI AU CP — installer le jeu comme une application
+====================================================
+
+1. METTRE LE JEU EN LIGNE (une seule fois, gratuit)
+   Netlify n'est plus utilisé (crédits épuisés). Deux options :
+
+   A) GitHub Pages (simple, dépôt public obligatoire en gratuit)
+      - Créez un dépôt public (ex. rumi-au-cp).
+      - Uploadez le contenu de ce dossier à la racine du dépôt.
+      - Activez Pages (Settings › Pages › Deploy from branch › main / root).
+      - Adresse du type https://VOUS.github.io/rumi-au-cp/
+
+   B) Cloudflare Pages (dépôt privé possible, gratuit)
+      - Créez un compte sur https://pages.cloudflare.com
+      - Connectez un dépôt GitHub (même privé) ou uploadez le dossier en Direct Upload.
+      - Framework preset : None. Build command : (vide). Output directory : /
+      - Adresse du type https://rumi-au-cp.pages.dev
+
+   Pour que Pico pousse les mises à jour à votre place : dépôt dédié + jeton
+   fine-grained limité à ce dépôt (Contents et Pages en lecture/écriture).
+
+2. INSTALLER SUR LA TABLETTE
+   iPad / iPhone : ouvrez l'adresse dans Safari › bouton Partager › « Sur l'écran d'accueil ».
+   Android : ouvrez l'adresse dans Chrome › menu ⋮ › « Installer l'application ».
+   L'icône de Rumi apparaît sur l'écran d'accueil. Après une première ouverture
+   avec internet, le jeu marche aussi hors connexion.
+
+3. RÉCUPÉRER LA PROGRESSION DE LA VERSION CLAUDE
+   - Dans la page Claude : maintenez ⚙️ appuyé › « Copier le code de sauvegarde ».
+   - Dans l'application installée : maintenez ⚙️ › collez le code › « Charger ce code ».
+   La progression est ensuite enregistrée sur la tablette.
+
+4. MICRO (lecture à voix haute)
+   - Espace parent › « Tester le micro », dites « bonjour » et autorisez le micro.
+   - iPad : la Dictée doit être activée (Réglages › Général › Clavier › Dictée).
+   - Si le micro ne répond pas, choisissez « Un adulte valide » dans l'espace parent.
+
+5. VOIX
+   iPad : installez la voix « Amélie (améliorée) » dans Réglages › Accessibilité ›
+   Contenu énoncé › Voix › Français, puis choisissez-la dans l'espace parent.
+
+6. METTRE À JOUR LE JEU
+   Republiez le dossier (push GitHub Pages, nouveau Direct Upload Cloudflare, etc.).
+   La tablette reçoit la nouvelle version à l'ouverture suivante (avec internet).
+   La progression est conservée.
