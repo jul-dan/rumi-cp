@@ -3931,10 +3931,11 @@ const genQ = (t, d) => GEN[t](GEN_HI.has(t) ? d : Math.min(5, d));
 const MATH_T = d => ["count","compare","add","numeral","pattern","dice"].concat(d>=2 ? ["after","bigger","sortnum","sub"] : [], d>=3 ? ["missadd","dice"] : [],
   d>=5 ? ["problem"] : [], d>=6 ? ["problem","tens","bigger"] : [], d>=7 ? ["problem","tens"] : []).filter(t => d < 6 || !["count","compare","dice","pattern"].includes(t));
 // La lecture de mots est au cœur des missions : plusieurs exercices de mots, qui reviennent plus souvent
-const READ_T = d => ["readword","readword","sound","word","syllable","clap","read","firstletter","rhyme","letter","paire","prononce"]
+const READ_T = d => ["readword","readword","sound","word","syllable","clap","read","firstletter","rhyme","letter","prononce","syllable"]
   .concat(d>=2 ? ["readword","spell","missing","order","read","lower","countletters","bd","vf"] : [],
           // les pièges (f/v, b/d, bra/bar) reviennent souvent : c'est ce qu'elle confond à l'oral
-          d>=2 ? ["paire","lisson","build","lisson","prononce","prononce"].concat(typeof mirrorOK === "function" && mirrorOK() ? ["miroir"] : []) : [],
+          // (les exercices « j'écoute et je compare » — paire, lisson, miroir — sont retirés : remplacés par la lecture à voix haute et l'assemblage)
+          d>=2 ? ["build","prononce","build","prononce","prononce","readword"] : [],
           d>=3 ? ["missletter","intrus","spell","missing","bd"] : [],
           d>=4 ? ["sentence","sentence","readword"] : [],
           d>=5 ? ["compre","cloze"] : [], d>=6 ? ["compre","compre","cloze"] : [], d>=7 ? ["compre","compre","cloze"] : [])
