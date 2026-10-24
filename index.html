@@ -300,6 +300,8 @@ body.speaking .speak-btn{animation:speakPulse 1.3s ease-in-out infinite}
 .numline .tile{font-family:var(--f-display);font-weight:600}
 .read-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:100%}
 .read-emoji{font-size:clamp(40px,8dvh,90px);line-height:1}
+.read-emoji.reveal-pop{animation:revealPop .45s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes revealPop{from{transform:scale(.2);opacity:0}to{transform:none;opacity:1}}
 .syl-tiles{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px}
 .syl-tiles .tile{font-size:clamp(28px,min(7dvh,9.5vw),64px)}
 .sep{font-family:var(--f-display);font-size:clamp(20px,4dvh,30px);color:var(--ink-3)}
@@ -3621,9 +3623,9 @@ const GEN = {
     return {type:"read", mode:"speak", target, word, rw:word || null, syl:!word, say:say0,
       judge:!!judged, traps:judged ? trapsFor(target) : null, grammar:judged ? judgeGrammar(target, trapsFor(target)) : null,
       caption: word ? "Lis les syllabes et dis le mot à voix haute" : "Lis la syllabe et dis-la deux fois",
-      visual:`<div class="read-wrap">${emoji ? `<span class="read-emoji">${emoji}</span>` : ""}<div class="prompt-visual">${tilesHTML(tiles)}${word ? "" : `<span class="twice">× 2</span>`}</div></div>`,
+      visual:`<div class="read-wrap"><div class="prompt-visual">${tilesHTML(tiles)}${word ? "" : `<span class="twice">× 2</span>`}</div></div>`,
       hintFn(){ return litSeq("#prompt .syl-tiles .tile", [...tiles.map(x => x[1]), word ? `Ça fait : ${word} !` : `${tiles[0][1]}, ${tiles[0][1]} !`], {rate:.85}); },
-      answer:null, choices:[]};
+      reveal:emoji, answer:null, choices:[]};
   }
 };
 function syl3Q(d){
@@ -3704,7 +3706,7 @@ Object.assign(GEN, {
   countletters(d){
     const it = pickNew(WPOOL(d)), w = it.w;
     return {type:"countletters", rw:w, counting:true, say:["Combien de lettres dans ce mot ? Touche chaque lettre pour compter !"], caption:"Combien de lettres dans ce mot ?",
-      visual:`<div class="read-wrap"><span class="read-emoji">${it.e}</span><div class="word-card letters">${[...w].map((ch,i) => `<button class="tap-item lt" style="--k:${i}">${ch}</button>`).join("")}</div></div>`,
+      reveal:it.e, visual:`<div class="read-wrap"><div class="word-card letters">${[...w].map((ch,i) => `<button class="tap-item lt" style="--k:${i}">${ch}</button>`).join("")}</div></div>`,
       hint:["Touche chaque lettre, une par une, pour les compter !"],
       answer:w.length, choices:numberChoices(w.length, 1, 9, d >= 3 ? 4 : 3, false)};
   },
@@ -4801,6 +4803,8 @@ async function onRight(btn){
   sfx.good();
   const first = qErr === 0, t = Q.type, dom = domOf(t);
   trapNote(first);
+  // l'image du mot n'apparaît qu'APRÈS la bonne réponse (récompense) : sinon l'enfant devine sans lire
+  if (Q.reveal) { const w = $("#prompt .read-wrap"); if (w && !w.querySelector(".read-emoji")) { const e = document.createElement("span"); e.className = "read-emoji reveal-pop"; e.textContent = Q.reveal; w.prepend(e); } }
   const rw = Q.rw; if (rw && typeof rw === "string") S.readWords[rw] = (S.readWords[rw] || 0) + 1;
   if (first) c.combo++;
   // Adaptation : on monte doucement quand c'est réussi du premier coup, on redescend après des erreurs
