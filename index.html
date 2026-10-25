@@ -1576,6 +1576,31 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .kfx-assist .as-name{position:absolute;left:50%;top:-4%;transform:translateX(-50%);white-space:nowrap;font:600 clamp(13px,2dvh,17px) var(--f-display);color:#3a2200;background:var(--gold-foil);padding:2px 10px;border-radius:99px;box-shadow:0 2px 8px rgba(0,0,0,.45)}
 .wi-chars .rig,.home-friend .rig{animation-duration:3.6s}
 #gDemon:not(.boss){height:56%!important}
+
+/* ================= v8 : CARTES EN OR INTÉGRALEMENT DORÉES ================= */
+.kcard.r-sr{background:linear-gradient(150deg,#8a5a12 0%,#e8b647 12%,#fff1b5 24%,#d9a034 38%,#9a6614 50%,#f2cb62 63%,#fff4c6 76%,#c48a22 88%,#7a4c0a 100%)!important;background-size:240% 240%!important;
+  animation:goldBg 7s ease-in-out infinite!important;box-shadow:0 0 0 .5px #3a2200,0 8px 20px rgba(30,12,0,.55),0 0 26px rgba(255,200,80,.55)!important}
+@keyframes goldBg{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
+.r-sr::before{background:linear-gradient(135deg,#5c3806 0%,#c9921f 18%,#ffe9a0 32%,#b57c16 48%,#6e4508 60%,#e3b13f 76%,#fff0b0 90%,#8a5a12 100%)!important;background-size:220% 220%!important}
+/* l'illustration entière passe en monochrome or (duotone sépia-or) + voile doré */
+.r-sr .c-art{filter:sepia(1) saturate(2.1) hue-rotate(-8deg) brightness(.97) contrast(1.18);box-shadow:0 0 0 .8cqw #fff0b5,0 0 0 1.5cqw #a8741a,0 1.2cqw 3cqw rgba(80,45,0,.4)!important}
+.r-sr .c-art::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(160deg,rgba(255,236,160,.35),rgba(214,150,40,.18) 45%,rgba(120,70,5,.3));mix-blend-mode:overlay}
+.r-sr .c-art .ca-scene{background:radial-gradient(circle at 50% 42%,#fff1c0,#e9b84a 45%,#9a6614 100%)!important}
+.r-sr .ca-land{opacity:.6!important}
+.r-sr .ca-fig{filter:drop-shadow(0 0 2cqw rgba(255,240,180,.9)) drop-shadow(0 1cqw .8cqw rgba(80,45,0,.35))}
+/* bandeau du nom : or poli, texte brun foncé bien lisible */
+.r-sr .c-name{background:linear-gradient(180deg,#fff6cf 0%,#f6d77a 45%,#e2b245 55%,#f9e29a 100%)!important;box-shadow:0 .6cqw 1.6cqw rgba(80,45,0,.4),inset 0 0 0 .5cqw #fff3c4,inset 0 0 0 .9cqw #b98218!important}
+.r-sr .c-name b{color:#3d2400!important;text-shadow:0 1px 0 rgba(255,250,225,.9)}
+.r-sr .c-name small{color:#6b4300!important}
+.r-sr .kc-no{background:linear-gradient(180deg,#fff6cf,#f0c95e)!important;color:#3d2400!important;box-shadow:inset 0 0 0 .3cqw #b98218}
+.r-sr .kc-rar{background:linear-gradient(140deg,#fff4c6,#d9a034)!important;color:#fff!important;box-shadow:inset 0 0 0 .3cqw #9a6614}
+.r-sr .kdh-badge{filter:sepia(1) saturate(1.6) hue-rotate(-6deg) brightness(1.05)}
+/* reflet doré qui balaie la carte (pas de 3D) */
+.r-sr .kc-holo{display:block!important;z-index:6!important;mix-blend-mode:screen!important;opacity:1!important;
+  background:linear-gradient(115deg,transparent 38%,rgba(255,250,220,.85) 47%,rgba(255,226,140,.45) 52%,transparent 61%)!important;background-size:320% 100%!important;
+  animation:cardSweep 4.6s ease-in-out infinite!important}
+.cslot.empty.r-sr{background:linear-gradient(150deg,#e8b647,#fff1b5 40%,#c48a22)!important;color:#5c3806!important}
 </style>
 </head>
 <body>
@@ -1811,15 +1836,15 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
     <div class="sec">
       <h3>Voix</h3>
-      <div class="row"><div class="seg" id="nvSeg"><button data-v="rec">Voix naturelle de Rumi (recommandée)</button><button data-v="system">Voix de l'appareil</button></div></div>
+      <div class="row"><div class="seg" id="nvSeg"><button data-v="rec">Voix naturelle de Rumi (recommandée)</button></div></div>
       <p id="nvStatus"></p>
       <div class="row" id="recRow"><button class="ghost" id="recDl">Garder toutes les phrases pour jouer hors ligne</button><span id="recDlInfo"></span></div>
       <div class="nv-bar" id="nvBar" hidden><i id="nvBarIn"></i></div>
-      <div class="row"><button class="ghost" id="nvLoad">Télécharger la voix naturelle</button></div>
+      <div class="row" hidden><button class="ghost" id="nvLoad">Télécharger la voix naturelle</button></div>
       <div class="row" id="nvVoiceRow"><span>Voix de Rumi</span><div class="seg" id="nvVoiceSeg"><button data-v="F1">1</button><button data-v="F2">2</button><button data-v="F3">3</button><button data-v="F4">4</button><button data-v="F5">5</button></div></div>
       <label class="row nv-chk"><input type="checkbox" id="nvSyl"><span>Syllabes et sons isolés avec la voix du téléphone</span></label>
       <div class="row"><span>Vitesse</span><div class="seg" id="speedSeg"><button data-v="normal">Normale</button><button data-v="slow">Lente</button></div><button class="ghost" id="voiceTest">Tester</button></div>
-      <div id="sysVoice">
+      <div id="sysVoice" hidden>
       <div class="row"><label for="voiceSel" class="sr-only">Voix</label><select id="voiceSel"></select></div>
       <div class="row"><span>Style</span><div class="seg" id="styleSeg"><button data-v="pep">Pétillante</button><button data-v="kid">Petite fille</button><button data-v="soft">Douce</button></div></div>
       <p id="voiceInfo">Voix du téléphone (utilisée quand la voix naturelle n'est pas prête). Sur iPad : Réglages › Accessibilité › Contenu énoncé › Voix › Français, puis téléchargez « Audrey (premium) » ou « Amélie (améliorée) ».</p>
@@ -2113,6 +2138,7 @@ let S = fresh();
 function sanitize(o){
   const s = {...fresh(), ...(o||{})};
   s.xp = Math.max(0, +s.xp||0);
+  s.goldDry = Math.max(0, Math.min(99, +s.goldDry || 0));
   if (typeof s.missions !== "object" || !s.missions) s.missions = {};
   if (!Array.isArray(s.stickers)) s.stickers = [];
   if (!(s.outfit >= 0 && s.outfit < OUTFITS.length)) s.outfit = 0;
@@ -2260,11 +2286,22 @@ const VSTYLES = {pep:{p:1.15, r:1.05, name:"Pétillante"}, kid:{p:1.35, r:1.06, 
    Toutes les phrases fixes, mots, syllabes, lettres et nombres du jeu ont été enregistrés avec la même voix.
    Si une phrase n'existe pas en fichier (texte dynamique rare), la voix du téléphone prend le relais. */
 const REC = {idx:null, el:null, ok:true, fail:0, unlocked:false};
-fetch("audio/index.json").then(r => r.ok ? r.json() : null).then(j => { if (j) REC.idx = j; }).catch(() => {});
+// v8 : UNE seule voix (Kokoro ff_siwis, fichiers) — jamais la voix robot du téléphone. Texte inconnu : on joue les morceaux connus, le reste est sauté.
+const recDev = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) || /[?&]dev\b/.test(location.search);
+let recIdxP = null;
+function recReady(){
+  if (REC.idx && RECEN.idx) return Promise.resolve();
+  if (!recIdxP) recIdxP = Promise.all([
+    REC.idx ? 0 : fetch("audio/index.json").then(r => r.ok ? r.json() : null).then(j => { if (j) REC.idx = j; }).catch(() => {}),
+    RECEN.idx ? 0 : fetch("audio/en/index.json").then(r => r.ok ? r.json() : null).then(j => { if (j) RECEN.idx = j; }).catch(() => {})
+  ]).then(() => { recIdxP = null; });
+  return Promise.race([recIdxP, new Promise(r => setTimeout(r, 4000))]);
+}
+function recMiss(t){ __VMISS.push(t); if (recDev) console.warn("[romi] clip audio manquant :", t); }
 const recFrag = t => String(t).replace(/\s+/g, " ").trim().split(/(?<=[.!?…])\s+/).map(x => x.trim()).filter(Boolean);
 function recCan(parts){ return !!recPlan(parts); }
 const RECEN = {idx:null};
-fetch("audio/en/index.json").then(r => r.ok ? r.json() : null).then(j => { if (j) RECEN.idx = j; }).catch(() => {});
+setTimeout(() => recReady(), 0);
 window.__VMISS = window.__VMISS || []; window.__SYSCALLS = window.__SYSCALLS || 0;
 const recNorm = t => String(t).replace(/[\u2019]/g, "'").replace(/\s+/g, " ").trim();
 const recKey = t => String(t).toLowerCase().replace(/[\u2019]/g, "'").replace(/[.!?…,:;()«»"]/g, " ").replace(/\s+/g, " ").trim();
@@ -2279,7 +2316,7 @@ function recWords(g, idx){
   for (let i = 0; i < ws.length;) {
     let hit = 0;
     for (let L = Math.min(14, ws.length - i); L >= 1; L--) { const k = N.get(ws.slice(i, i + L).join(" ")); if (k) { out.push(k); hit = L; break; } }
-    if (!hit) return null; i += hit;
+    if (!hit) { if (!recWords.partial) return null; recMiss("mot|" + ws[i]); hit = 1; } i += hit;
   }
   return out;
 }
@@ -2294,16 +2331,20 @@ function recResolve(f, idx){
 }
 // parts : textes français, ou {t, en:true} ; renvoie une liste de clés de fichiers par morceau (ou null)
 function recPlan(parts){
-  if (!REC.idx || !REC.ok || S.voiceEngine === "system") return null;
-  const plan = []; let bad = false;
+  if (!REC.idx) { recMiss("(index audio pas encore chargé)"); return parts.map(() => []); }
+  const plan = [];
   for (const p of parts) {
     const en = typeof p === "object" && p.en, t = typeof p === "object" ? p.t : p;
     let keys = [];
-    if (en) { if (!RECEN.idx) return null; const r = recResolve(t, RECEN.idx); if (!r) { __VMISS.push("EN|" + t); bad = true; continue; } keys = r.map(k => "en/" + k); }
-    else for (const f of recFrag(t)) { const r = recResolve(f, REC.idx); if (!r) { __VMISS.push(f); bad = true; } else keys.push(...r); }
+    if (en) { const r = RECEN.idx && recResolve(t, RECEN.idx); if (!r) recMiss("EN|" + t); else keys = r.map(k => "en/" + k); }
+    else for (const f of recFrag(t)) {
+      let r = recResolve(f, REC.idx);
+      if (!r) { recMiss(f); recWords.partial = true; try { r = recWords(recNorm(f).replace(/[«»"]/g, ""), REC.idx); } finally { recWords.partial = false; } }
+      if (r) keys.push(...r);
+    }
     plan.push(keys);
   }
-  return bad ? null : plan;
+  return plan;
 }
 function recEl(){ if (!REC.el) { REC.el = new Audio(); REC.el.preload = "auto"; } return REC.el; }
 function recPlay(key){
@@ -2340,7 +2381,7 @@ document.addEventListener("pointerdown", function recUnlock(){
 }, true);
 async function recDownloadAll(onProg){
   if (!REC.idx || !("caches" in window)) return false;
-  const keys = [...new Set([...Object.values(REC.idx), ...Object.values(RECEN.idx || {}).map(k => "en/" + k)])], c = await caches.open("romi-audio2");
+  const keys = [...new Set([...Object.values(REC.idx), ...Object.values(RECEN.idx || {}).map(k => "en/" + k)])], c = await caches.open("romi-audio3");
   let n = 0;
   for (let i = 0; i < keys.length; i += 8) {
     await Promise.all(keys.slice(i, i + 8).map(async k => { const u = new URL(`audio/${k}.mp3`, location.href).href; if (!(await c.match(u))) { try { const r = await fetch(u); if (r.ok) await c.put(u, r); } catch(e) {} } n++; }));
@@ -2348,7 +2389,17 @@ async function recDownloadAll(onProg){
   }
   return true;
 }
-function voiceMigrate(){ if (!S.voiceV5) { S.voiceV5 = true; S.voiceV4 = true; S.voiceEngine = "rec"; save(); } if (!S.voiceV4) { S.voiceV4 = true; if (S.voiceEngine !== "system") S.voiceEngine = "rec"; save(); } }
+// hors ligne : toutes les phrases sont gardées dans le téléphone, une fois, en arrière-plan (pas en 4G / économie de données)
+(function recAutoKeep(){
+  const KEY = "romi-audio3-full";
+  const go = () => {
+    try { if (localStorage.getItem(KEY) === "1") return; } catch(e) { return; }
+    const c = navigator.connection; if (!navigator.onLine || (c && (c.saveData || c.type === "cellular"))) return;
+    recReady().then(() => recDownloadAll()).then(ok => { if (ok) { try { localStorage.setItem(KEY, "1"); } catch(e) {} } }).catch(() => {});
+  };
+  addEventListener("load", () => setTimeout(go, 15000));
+})();
+function voiceMigrate(){ if (S.voiceEngine !== "rec") S.voiceEngine = "rec"; if (!S.voiceV5) { S.voiceV5 = true; S.voiceV4 = true; S.voiceEngine = "rec"; save(); } if (!S.voiceV4) { S.voiceV4 = true; if (S.voiceEngine !== "system") S.voiceEngine = "rec"; save(); } }
 
 function stopSpeech(){ speakToken++; if (hasTTS) speechSynthesis.cancel(); if (REC.el) { try { REC.el.pause(); } catch(e) {} } nvStop(); document.body.classList.remove("speaking"); duck(false); }
 let speakAs = null;   // voix d'un autre personnage (Zoé, Zuma) pour les indices
@@ -4288,10 +4339,14 @@ function packSVG(kind = "normal"){
 // Les cartes-mots privilégient les mots qu'elle a réussi à lire ; les cartes manquantes sortent plus souvent.
 function rollRarity(slot){
   const r = Math.random();
-  // une carte en or : environ un paquet sur 17 (v6 ; avant : un sur 30)
-  if (slot === 4) return r < .05 ? "sr" : r < .9 ? "rare" : "common";
-  return r < .0025 ? "sr" : r < .1 ? "rare" : "common";
+  // une carte en or : environ un paquet sur 10 (v8 ; v6 : un sur 17 ; avant : un sur 30)
+  if (slot === 4) return (goldPity() || r < .085) ? "sr" : r < .9 ? "rare" : "common";
+  return r < .004 ? "sr" : r < .1 ? "rare" : "common";
 }
+// Garantie : après 12 paquets sans carte en or, la 5e carte du paquet suivant est en or
+const GOLD_PITY = 12;
+const goldPity = () => (+S.goldDry || 0) >= GOLD_PITY;
+function goldTrack(cards){ S.goldDry = cards.some(c => c.rarity === "sr") ? 0 : (+S.goldDry || 0) + 1; }
 function drawPack(){
   const taken = new Set(), out = [];
   for (let i = 0; i < 5; i++) {
@@ -4305,6 +4360,7 @@ function drawPack(){
     const src = missing.length && Math.random() < (rar === "sr" ? .8 : .6) ? missing : pool;
     const c = pick(src); taken.add(c.id); out.push(c);
   }
+  goldTrack(out);
   const order = {common:0, rare:1, sr:2};
   return out.sort((a,b) => order[a.rarity] - order[b.rarity]);
 }
@@ -4346,12 +4402,13 @@ function drawEnglish(unit){
   const firstEver = !CARDS.some(c => c.en && c.rarity !== "common" && S.cards[c.id]) && !S.en.packsOpened;
   for (let i = 0; i < 5; i++) {
     const r = Math.random(); let rar = "common";
-    if (i === 4) rar = firstEver ? "rare" : r < .053 ? "sr" : r < .32 ? "rare" : "common";
+    if (i === 4) rar = firstEver ? "rare" : (goldPity() || r < .09) ? "sr" : r < .32 ? "rare" : "common";
     let pool = rar === "common" ? (i < 3 && unit ? words.filter(c => c.unit === unit) : words) : CARDS.filter(c => c.en && c.rarity === rar);
     let c = pickFrom(pool, taken) || pickFrom(words, taken) || pickFrom(CARDS.filter(c => c.kind === "en"), taken);
     taken.add(c.id); out.push(c);
   }
   S.en.packsOpened = (S.en.packsOpened || 0) + 1;
+  goldTrack(out);
   const order = {common:0, rare:1, sr:2};
   return out.sort((a, b) => order[a.rarity] - order[b.rarity]);
 }
@@ -4795,8 +4852,9 @@ function onWrong(btn){
 
 async function onRight(btn){
   if (busy && btn) return;
-  busy = true;
   const c = S.cur;
+  if (!c || !Q) return;          // mission déjà terminée (double appel)
+  busy = true;
   hideHelper();
   $("#choices").classList.add("locked");
   if (btn) { btn.classList.add("right"); $$("#choices .choice:not(.right)").forEach(x => x.classList.add("dim")); }
@@ -7558,18 +7616,15 @@ function say(parts, opts = {}){
   parts = [].concat(parts).filter(Boolean);
   if (!parts.length) return Promise.resolve();
   voiceMigrate();
-  const plan = recPlan(parts);
-  if (plan) {
-    const token = ++speakToken;
-    if (hasTTS) speechSynthesis.cancel();
-    nvStop(); if (REC.el) { try { REC.el.pause(); } catch(e) {} }
-    return recSay(parts, opts, token, plan);
-  }
-  if (S.voiceEngine === "system" || !nvOn() || nvAvoid(parts)) return saySys(parts, opts);
+  return recSpeak(parts, opts);
+}
+// toujours les fichiers de la voix naturelle (jamais speechSynthesis, jamais la voix neuronale sur l'appareil)
+function recSpeak(parts, opts){
   const token = ++speakToken;
   if (hasTTS) speechSynthesis.cancel();
-  nvStop(); nvDropUrgent();
-  return nvSay(parts, opts, token);
+  nvStop(); if (REC.el) { try { REC.el.pause(); } catch(e) {} }
+  const go = () => token !== speakToken ? undefined : recSay(parts, opts, token, recPlan(parts));
+  return REC.idx && (RECEN.idx || !parts.some(p => p && p.en)) ? go() : recReady().then(go);
 }
 async function nvSay(parts, {rate, onPart, as} = {}, token){
   const who = nvVoiceFor(as || speakAs), speed = nvSpeed(rate) / who.pr;
@@ -7627,7 +7682,7 @@ function nvUI(){
   segSet("nvVoiceSeg", NV_VOICES.includes(S.nvVoice) ? S.nvVoice : "F1");
   $("#nvVoiceRow").hidden = !nvOn();
   $("#nvSyl").parentElement.hidden = true;
-  $("#sysVoice").hidden = nvOn();
+  $("#sysVoice").hidden = true;
 }
 $("#nvSeg").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
@@ -8790,8 +8845,7 @@ function enSay(parts, {onPart} = {}){
   parts = parts.map(p => typeof p === "string" ? {t:p} : p).filter(p => p && p.t);
   if (!parts.length) return Promise.resolve();
   voiceMigrate();
-  const plan = recPlan(parts);
-  if (plan) { const token = ++speakToken; if (hasTTS) speechSynthesis.cancel(); nvStop(); if (REC.el) { try { REC.el.pause(); } catch(e) {} } return recSay(parts, {onPart}, token, plan); }
+  return recSpeak(parts, {onPart});
   if (!hasTTS) return Promise.resolve();
   if (!enV) enPickVoice();
   const token = ++speakToken;
