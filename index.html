@@ -1601,6 +1601,54 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   background:linear-gradient(115deg,transparent 38%,rgba(255,250,220,.85) 47%,rgba(255,226,140,.45) 52%,transparent 61%)!important;background-size:320% 100%!important;
   animation:cardSweep 4.6s ease-in-out infinite!important}
 .cslot.empty.r-sr{background:linear-gradient(150deg,#e8b647,#fff1b5 40%,#c48a22)!important;color:#5c3806!important}
+
+/* ================= v9 : limite de temps (Rumi va se coucher) ================= */
+#oParent{z-index:70}
+.tl-seg{flex-wrap:wrap}
+.tl-note{font-size:.85em;opacity:.8}
+.tl-banner{position:fixed;left:50%;top:calc(10px + env(safe-area-inset-top,0px));transform:translate(-50%,-140%);z-index:45;display:flex;align-items:center;gap:12px;max-width:min(560px,92vw);
+  padding:10px 18px 10px 10px;border-radius:22px;color:#fff6dc;font-weight:800;font-size:clamp(15px,2.4vw,19px);line-height:1.25;
+  background:radial-gradient(circle at 92% 20%,rgba(255,240,180,.35) 0 6px,transparent 7px),radial-gradient(circle at 80% 75%,rgba(255,255,255,.7) 0 1.5px,transparent 2px),radial-gradient(circle at 68% 18%,rgba(255,255,255,.8) 0 1.5px,transparent 2px),linear-gradient(135deg,#1b1450,#3a2a8a 60%,#5b3aa0);
+  box-shadow:0 10px 30px rgba(8,4,30,.55),inset 0 0 0 2px rgba(255,226,140,.55);transition:transform .5s cubic-bezier(.2,1.3,.4,1);cursor:pointer}
+.tl-banner.show{transform:translate(-50%,0)}
+.tl-banner p{margin:0}
+.tl-face{position:relative;flex:0 0 auto;width:64px;height:64px;border-radius:50%;overflow:visible;background:radial-gradient(circle,#3c2c8c,#1a1240);box-shadow:inset 0 0 0 2px #e9c25a}
+.tl-face img{width:100%;height:100%;object-fit:cover;object-position:50% 4%;border-radius:50%;transform:scale(1.9);transform-origin:50% 12%;clip-path:circle(50%);filter:brightness(.9) saturate(.9)}
+.tl-face img{clip-path:none}
+.tl-face{overflow:hidden}
+.tl-cap{position:absolute;left:18%;top:-6%;width:62%;height:46%;background:linear-gradient(160deg,#6d8cff,#3b4fd0);clip-path:polygon(0 100%,100% 100%,78% 0);border-radius:4px;z-index:2}
+.tl-cap::after{content:"";position:absolute}
+.tl-face .tl-cap{left:14%;top:-4%;width:64%;height:44%}
+.tl-face::after{content:"";position:absolute;left:69%;top:-2%;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,.8);z-index:3}
+.tl-zz{font-family:var(--f-display);font-weight:700;color:#cfd8ff;letter-spacing:2px;align-self:flex-start;animation:zz 2.4s ease-in-out infinite}
+.tl-zz i,.tl-zz b{font-style:normal;font-weight:700;display:inline-block}
+.tl-zz i{font-size:1.2em;transform:translateY(-4px)}.tl-zz b{font-size:1.45em;transform:translateY(-9px)}
+@keyframes zz{0%,100%{opacity:.5;transform:translateY(2px)}50%{opacity:1;transform:translateY(-3px)}}
+.bed-ov{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;box-sizing:border-box;text-align:center;color:#fff6dc;
+  background:radial-gradient(120% 80% at 50% 0%,#2c2470 0%,#140e3e 55%,#07051a 100%);overflow:hidden}
+.bed-sky{position:absolute;inset:0;pointer-events:none}
+.bed-moon{position:absolute;right:12%;top:8%;width:clamp(70px,14vw,120px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fffbe6,#f4dc8e 60%,#d9b65a);
+  box-shadow:0 0 60px 18px rgba(255,236,170,.35);-webkit-mask:radial-gradient(circle at 72% 34%,transparent 34%,#000 35%);mask:radial-gradient(circle at 72% 34%,transparent 34%,#000 35%)}
+.bed-st{position:absolute;width:6px;height:6px;background:#fff;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);animation:twk 3s ease-in-out infinite}
+.bed-st.s1{left:10%;top:12%;width:12px;height:12px}.bed-st.s2{left:28%;top:6%;animation-delay:-1s}.bed-st.s3{left:46%;top:16%;width:9px;height:9px;animation-delay:-2s}.bed-st.s4{left:64%;top:5%;animation-delay:-.5s}
+.bed-st.s5{left:18%;top:30%;width:8px;height:8px;animation-delay:-1.6s}.bed-st.s6{left:82%;top:32%;width:10px;height:10px;animation-delay:-2.4s}.bed-st.s7{left:6%;top:48%;animation-delay:-.8s}
+@keyframes twk{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+.bed-gear{position:absolute!important;right:14px;top:calc(12px + env(safe-area-inset-top,0px));opacity:.55}
+.bed-scene{position:relative;width:min(300px,62vw);aspect-ratio:1/1.05}
+.bed-rumi{position:absolute;left:18%;top:0;width:64%;transform:rotate(-7deg);transform-origin:50% 90%;animation:breathe 4.5s ease-in-out infinite}
+.bed-rumi img{width:100%;display:block;filter:brightness(.78) saturate(.85) drop-shadow(0 0 18px rgba(120,140,255,.35))}
+.bed-rumi .tl-cap{left:30%;top:-3%;width:42%;height:14%}
+.bed-rumi::after{content:"";position:absolute;left:66%;top:-4%;width:9%;aspect-ratio:1;border-radius:50%;background:#fff;box-shadow:0 0 8px #fff;z-index:3}
+@keyframes breathe{0%,100%{transform:rotate(-7deg) scale(1)}50%{transform:rotate(-7deg) scale(1.015) translateY(-2px)}}
+.bed-blanket{position:absolute;left:-6%;right:-6%;top:50%;bottom:2%;border-radius:46% 46% 16% 16%/38% 38% 12% 12%;
+  background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 10px,transparent 10px 20px),linear-gradient(180deg,#7d6cf0,#4d3fb8 70%,#3a2e94);box-shadow:inset 0 6px 0 rgba(255,255,255,.18),0 12px 30px rgba(0,0,0,.4)}
+.bed-blanket::before{content:"";position:absolute;left:8%;right:8%;top:-3%;height:16%;border-radius:40px;background:linear-gradient(180deg,#fff7e6,#e9dcc0);box-shadow:0 3px 8px rgba(0,0,0,.25)}
+.bed-scene::before{content:"";position:absolute;left:4%;right:4%;top:6%;height:40%;border-radius:40% 40% 20% 20%;background:radial-gradient(circle at 50% 60%,#f3ecff,#c9bdf3);opacity:.9;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.tl-zz.big{position:absolute;right:2%;top:2%;font-size:28px}
+.bed-t{margin:6px 0 0;font-family:var(--f-display);font-size:clamp(22px,4.4vw,34px);color:#ffe9a6;text-shadow:0 2px 12px rgba(255,214,110,.35)}
+.bed-p{margin:0;font-size:clamp(16px,2.8vw,21px);font-weight:700;color:#e8e2ff}
+.bed-sum{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+.bed-sum span{background:rgba(255,255,255,.1);border:1px solid rgba(255,226,140,.35);border-radius:16px;padding:8px 14px;font-weight:800}
 </style>
 </head>
 <body>
@@ -1834,6 +1882,14 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   <div class="parent" role="dialog" aria-label="Espace parent">
     <div class="row" style="justify-content:space-between"><h3>Espace parent</h3><button class="ghost" id="pClose">Fermer</button></div>
 
+    <div class="sec" id="tlSec">
+      <h3>Temps de jeu par jour</h3>
+      <div class="row"><div class="seg tl-seg" id="tlSeg"><button data-v="30">30 min</button><button data-v="45">45 min</button><button data-v="60">1 h</button><button data-v="75">1 h 15</button><button data-v="90">1 h 30</button><button data-v="105">1 h 45</button><button data-v="120">2 h</button></div></div>
+      <p id="tlStatus"></p>
+      <div class="row"><button class="ghost" id="tlPlus">+15 min aujourd'hui</button></div>
+      <p class="tl-note">Seul le temps de jeu actif compte (pas quand l'écran est caché ou après 2 minutes sans toucher). Remise à zéro chaque nuit à minuit. Rumi prévient 10, 5 et 1 minute avant la fin, puis laisse finir la mission en cours.</p>
+    </div>
+
     <div class="sec">
       <h3>Voix</h3>
       <div class="row"><div class="seg" id="nvSeg"><button data-v="rec">Voix naturelle de Rumi (recommandée)</button></div></div>
@@ -1918,6 +1974,16 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 <div class="overlay card-zoom" id="oCard" hidden><div class="cz-in" id="czIn"></div></div>
 
 <div class="toast" id="toast" role="status"></div>
+<!-- LIMITE DE TEMPS : bandeau « Rumi a sommeil » et écran du coucher -->
+<div class="tl-banner" id="tlBanner" role="status" hidden><div class="tl-face"><img src="art/rumi-idle.webp" alt=""><i class="tl-cap"></i></div><p id="tlBannerTxt"></p><span class="tl-zz">z<i>z</i><b>z</b></span></div>
+<div class="bed-ov" id="oBed" hidden>
+  <div class="bed-sky"><i class="bed-moon"></i><i class="bed-st s1"></i><i class="bed-st s2"></i><i class="bed-st s3"></i><i class="bed-st s4"></i><i class="bed-st s5"></i><i class="bed-st s6"></i><i class="bed-st s7"></i></div>
+  <button class="icon-btn gear bed-gear" id="bedGear" aria-label="Espace parent : maintenir appuyé"><i class="fillring"></i><i data-ic="gear"></i></button>
+  <div class="bed-scene"><div class="bed-rumi"><img src="art/rumi-idle.webp" alt="Rumi dort"><i class="tl-cap"></i></div><div class="bed-blanket"></div><span class="tl-zz big">z<i>z</i><b>z</b></span></div>
+  <h2 class="bed-t">Rumi est allée se coucher.</h2>
+  <p class="bed-p">À demain pour de nouvelles aventures !</p>
+  <div class="bed-sum" id="bedSum"></div>
+</div>
 <canvas id="fx"></canvas>
 <script>
 (() => {
@@ -2131,14 +2197,17 @@ const EN_FITS = {
 
 /* ================= Sauvegarde : appareil + compte claude.ai + code ================= */
 const KEY = "romi-cp-v2";
-const fresh = () => ({v:2, xp:0, missions:{}, cur:null, stickers:[], outfit:0, perfect:0, bestCombo:0,
+const fresh = () => ({v:2, xp:0, timeLimit:60, missions:{}, cur:null, stickers:[], outfit:0, perfect:0, bestCombo:0,
   voiceName:null, slow:false, voiceStyle:"pep", voiceEngine:"rec", voiceV4:true, nvVoice:"F1", nvOk:false, nvSyl:false, micMode:"auto", micOk:false, music:false, updatedAt:0,
   skill:{math:1, read:1}, weak:{}, seenWorlds:[], friends:[], boosters:0, cards:{}, cardsV:2, readWords:{}, rushInput:"tap", engine:"device", devOk:false, recent:[], sparkPacks:[], rush:{best:{}, due:0, next:0}, write:{}, writeOk:0, enPacks:0, en:{u:{}, w:{}}});
 let S = fresh();
+const TL_CHOICES = [30, 45, 60, 75, 90, 105, 120];
 function sanitize(o){
   const s = {...fresh(), ...(o||{})};
   s.xp = Math.max(0, +s.xp||0);
   s.goldDry = Math.max(0, Math.min(99, +s.goldDry || 0));
+  s.timeLimit = TL_CHOICES.includes(+s.timeLimit) ? +s.timeLimit : 60;          // minutes par jour (anciennes sauvegardes : 1 h)
+  if (!s.tday || typeof s.tday !== "object") s.tday = null;
   if (typeof s.missions !== "object" || !s.missions) s.missions = {};
   if (!Array.isArray(s.stickers)) s.stickers = [];
   if (!(s.outfit >= 0 && s.outfit < OUTFITS.length)) s.outfit = 0;
@@ -2337,6 +2406,7 @@ function recPlan(parts){
     const en = typeof p === "object" && p.en, t = typeof p === "object" ? p.t : p;
     let keys = [];
     if (en) { const r = RECEN.idx && recResolve(t, RECEN.idx); if (!r) recMiss("EN|" + t); else keys = r.map(k => "en/" + k); }
+    else if (REC.idx[recNorm(t)]) keys.push(REC.idx[recNorm(t)]);      // phrase entière enregistrée d'un seul tenant
     else for (const f of recFrag(t)) {
       let r = recResolve(f, REC.idx);
       if (!r) { recMiss(f); recWords.partial = true; try { r = recWords(recNorm(f).replace(/[«»"]/g, ""), REC.idx); } finally { recWords.partial = false; } }
@@ -5284,6 +5354,7 @@ function openParent(){
   renderSkill();
   $("#codeStatus").textContent = ""; $("#micStatusP").textContent = "";
   $("#resetBtn").classList.remove("armed"); $("#resetBtn").textContent = "Effacer la progression";
+  tlUI();
   renderPacksInfo(); segSet("rushInputSeg", S.rushInput === "mic" ? "mic" : "tap");
   const rb = S.rush.best; $("#rushBest").textContent = Object.keys(rb).length ? "Records : " + Object.entries(rb).map(([k, v]) => `${RUSH_MODES[k].short} ${v}`).join(" · ") : "";
   $("#oParent").hidden = false;
@@ -5331,7 +5402,7 @@ $("#packsClear").addEventListener("click", e => {
 $("#resetBtn").addEventListener("click", e => {
   const b = e.currentTarget;
   if (!b.classList.contains("armed")) { b.classList.add("armed"); b.textContent = "Sûr ? Touchez encore pour tout effacer"; return; }
-  const keep = {voiceName:S.voiceName, voiceEngine:S.voiceEngine, nvVoice:S.nvVoice, nvOk:S.nvOk, nvSyl:S.nvSyl, slow:S.slow, voiceStyle:S.voiceStyle, micMode:S.micMode, micOk:S.micOk, music:S.music};
+  const keep = {voiceName:S.voiceName, voiceEngine:S.voiceEngine, nvVoice:S.nvVoice, nvOk:S.nvOk, nvSyl:S.nvSyl, slow:S.slow, voiceStyle:S.voiceStyle, micMode:S.micMode, micOk:S.micOk, music:S.music, timeLimit:S.timeLimit, tday:S.tday};
   S = {...fresh(), ...keep}; save(); $("#oParent").hidden = true; show("vHome"); toast("Progression effacée");
 });
 
@@ -9157,10 +9228,122 @@ $("#enBody").addEventListener("click", e => {
   if (e.target.closest("#enMemAgain")) { sfx.tap(); enMemory(); }
   else if (e.target.closest("#enBackUnit")) { sfx.tap(); enUnit(EN.unit); }
 });
+
+/* ================= Limite de temps par jour : Rumi a sommeil, puis va se coucher =================
+   - seul le temps ACTIF compte : écran visible, et une action il y a moins de 2 minutes ;
+   - alertes douces à 10, 5 et 1 minute(s) (bandeau + voix naturelle), sans couper un exercice ;
+   - à la fin : on laisse terminer la mission en cours (5 minutes au plus), puis écran du coucher ;
+   - débloquer : espace parent (appui long) → +15 min ou autre limite. Remise à zéro à minuit. */
+const TL = {rate:1, off:0, last:0, lastAct:Date.now(), timer:0, grace:null, locked:false, pend:null, bannerT:0, saveAcc:0};
+const TL_IDLE = 120, TL_GRACE = 300;
+const TL_WARN = [
+  {m:10, t:"Rumi commence à bâiller… encore 10 minutes de jeu !"},
+  {m:5,  t:"Rumi met son pyjama, plus que 5 minutes !"},
+  {m:1,  t:"Rumi se brosse les dents… dernière minute !"}];
+const TL_GRACE_T = "C'est l'heure ! On termine cette mission, et après, Rumi va se coucher.";
+const TL_BED_T = "Rumi est allée se coucher. À demain pour de nouvelles aventures !";
+const TL_BED_AGAIN = "Chut… Rumi dort. À demain pour de nouvelles aventures !";
+const TL_MORE_T = "Youpi ! Encore un petit moment de jeu avec Rumi !";
+const tlNow = () => Date.now() + TL.off;
+const tlDay = () => { const d = new Date(tlNow()); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+const tlStars = () => Object.values(S.missions || {}).reduce((a, b) => a + (+b || 0), 0);
+const tlCards = () => Object.values(S.cards || {}).reduce((a, b) => a + (+b || 0), 0);
+function tlState(){
+  const d = tlDay();
+  if (!S.tday || S.tday.d !== d) S.tday = {d, used:0, bonus:0, warned:[], s0:{stars:tlStars(), xp:S.xp || 0, cards:tlCards()}};
+  const t = S.tday; t.used = Math.max(0, +t.used || 0); t.bonus = Math.max(0, +t.bonus || 0); if (!Array.isArray(t.warned)) t.warned = []; if (!t.s0) t.s0 = {stars:tlStars(), xp:S.xp || 0, cards:tlCards()};
+  return t;
+}
+const tlLimit = () => (S.timeLimit || 60) * 60 + tlState().bonus;
+const tlLeft = () => tlLimit() - tlState().used;
+// alertes déjà « passées » (après un changement de limite ou un bonus) : on ne les rejoue que si on repasse au-dessus
+function tlRearm(){ const t = tlState(), left = tlLeft(); t.warned = TL_WARN.filter(w => left <= w.m * 60).map(w => w.m); }
+const tlBusy = () => curView === "vGame" || (typeof R !== "undefined" && R.running) || !$("#oPack").hidden || !$("#oRush").hidden;
+const tlActive = () => document.visibilityState === "visible" && !TL.locked && $("#oParent").hidden && (Date.now() - TL.lastAct) < TL_IDLE * 1000;
+["pointerdown", "keydown", "touchstart", "wheel"].forEach(ev => addEventListener(ev, () => { TL.lastAct = Date.now(); }, {capture:true, passive:true}));
+function tlBanner(text){
+  const b = $("#tlBanner"); $("#tlBannerTxt").textContent = text; b.hidden = false;
+  requestAnimationFrame(() => b.classList.add("show"));
+  clearTimeout(TL.bannerT); TL.bannerT = setTimeout(() => { b.classList.remove("show"); setTimeout(() => { if (!b.classList.contains("show")) b.hidden = true; }, 600); }, 8000);
+}
+$("#tlBanner").addEventListener("click", () => { clearTimeout(TL.bannerT); const b = $("#tlBanner"); b.classList.remove("show"); setTimeout(() => { b.hidden = true; }, 600); });
+// la voix attend que Rumi ait fini de parler et que le micro n'écoute pas : on ne coupe jamais une réponse
+function tlSpeakSoon(text){ TL.pend = text; tlFlush(); }
+function tlFlush(){
+  if (!TL.pend) return;
+  if (listening || busy || document.body.classList.contains("speaking")) return;
+  const t = TL.pend; TL.pend = null; say([t]);
+}
+function tlTick(){
+  const now = Date.now(), dt = Math.min(2, Math.max(0, (now - (TL.last || now)) / 1000)) * TL.rate; TL.last = now;
+  const t = tlState();                         // change de jour à minuit : tout repart à zéro
+  if (TL.locked && tlLeft() > 0) tlUnlock();
+  if (TL.locked) { if (!TL.fading) { try { if (Music.state.on) Music.stop(); } catch(e) {} } return; }
+  if (tlActive()) { t.used += dt; TL.saveAcc += dt; if (TL.saveAcc >= 10) { TL.saveAcc = 0; save(); } }
+  const left = tlLeft();
+  for (const w of TL_WARN) if (left <= w.m * 60 && left > 0 && !t.warned.includes(w.m)) {
+    TL_WARN.forEach(x => { if (x.m >= w.m && !t.warned.includes(x.m)) t.warned.push(x.m); });   // une seule alerte, même si on en a sauté
+    tlBanner(w.t); tlSpeakSoon(w.t); save(); break;
+  }
+  tlFlush();
+  if (left <= 0) {
+    if (TL.grace === null && tlBusy()) { TL.grace = 0; tlBanner(TL_GRACE_T); tlSpeakSoon(TL_GRACE_T); }
+    if (TL.grace !== null) { if (tlActive()) TL.grace += dt; if (tlBusy() && TL.grace < TL_GRACE) return; }
+    tlLock(true);
+  } else TL.grace = null;
+}
+function tlLock(fresh){
+  if (TL.locked) return;
+  TL.locked = true; TL.grace = null; TL.pend = null; save();
+  try { stopSpeech(); } catch(e) {}
+  try { if (typeof R !== "undefined" && R.running) R.running = false; } catch(e) {}
+  TL.fading = true;   // la musique s'adoucit, puis s'arrête
+  try { Music.calm(true); } catch(e) {}
+  setTimeout(() => { TL.fading = false; try { if (TL.locked) Music.stop(); } catch(e) {} }, fresh ? 6000 : 0);
+  const t = tlState(), st = Math.max(0, tlStars() - t.s0.stars), xp = Math.max(0, (S.xp || 0) - t.s0.xp), cd = Math.max(0, tlCards() - t.s0.cards), mn = Math.round(t.used / 60);
+  $("#bedSum").innerHTML = `<span>⭐ ${st} étoile${st > 1 ? "s" : ""} aujourd'hui</span><span>✨ +${xp} points</span>${cd ? `<span>🃏 ${cd} carte${cd > 1 ? "s" : ""}</span>` : ""}<span>🕐 ${mn} min de jeu</span>`;
+  $("#tlBanner").hidden = true; $("#oBed").hidden = false;
+  setTimeout(() => { if (TL.locked) say([fresh ? TL_BED_T : TL_BED_AGAIN]); }, fresh ? 900 : 600);
+}
+function tlUnlock(){
+  TL.locked = false; TL.grace = null; $("#oBed").hidden = true;
+  try { Music.calm(false); if (S.music) Music.start(); } catch(e) {}
+  if (curView === "vGame") { try { show("vMap"); } catch(e) {} } else { try { renderHome(); } catch(e) {} }
+}
+// sur l'écran du coucher : touche Rumi → elle dort ; appui long sur la roue → espace parent
+$("#oBed").addEventListener("click", e => { if (e.target.closest("#bedGear")) return; if (!document.body.classList.contains("speaking")) say([TL_BED_AGAIN]); });
+(function bedGearSetup(){
+  const g = $("#bedGear"); let st = 0, raf = 0;
+  const tick = () => { const p = Math.min(100, (performance.now() - st) / 12); g.style.setProperty("--p", p); if (p >= 100) { end(); openParent(); } else raf = requestAnimationFrame(tick); };
+  const end = () => { cancelAnimationFrame(raf); g.style.setProperty("--p", 0); };
+  g.addEventListener("pointerdown", e => { e.preventDefault(); st = performance.now(); raf = requestAnimationFrame(tick); });
+  ["pointerup", "pointerleave", "pointercancel"].forEach(ev => g.addEventListener(ev, end));
+  g.addEventListener("click", () => { if ($("#oParent").hidden) toast("Pour les parents : maintenir le bouton appuyé"); });
+  g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openParent(); } });
+  g.addEventListener("contextmenu", e => e.preventDefault());
+})();
+const tlFmt = sec => { const m = Math.max(0, Math.round(sec / 60)); return m >= 60 ? `${Math.floor(m / 60)} h${m % 60 ? " " + String(m % 60).padStart(2, "0") : ""}` : `${m} min`; };
+function tlUI(){
+  segSet("tlSeg", String(S.timeLimit || 60));
+  const t = tlState(), left = tlLeft();
+  $("#tlStatus").textContent = `Aujourd'hui : ${tlFmt(t.used)} joué${t.bonus ? ` · bonus ${tlFmt(t.bonus)}` : ""} · ${left > 0 ? `reste ${tlFmt(left)}` : "temps écoulé (Rumi dort)"}.`;
+}
+$("#tlSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.timeLimit = +b.dataset.v; tlRearm(); save(); tlUI(); if (TL.locked && tlLeft() > 0) tlUnlock(); });
+$("#tlPlus").addEventListener("click", () => { const t = tlState(); t.bonus += 15 * 60; tlRearm(); save(); tlUI(); if (TL.locked && tlLeft() > 0) { tlUnlock(); setTimeout(() => say([TL_MORE_T]), 400); } });
+document.addEventListener("visibilitychange", () => { TL.last = Date.now(); if (document.hidden) save(); });
+addEventListener("pagehide", () => { try { save(); } catch(e) {} });
+// au démarrage : si le temps du jour est déjà écoulé, Rumi dort (pas de délai de grâce)
+setTimeout(() => { tlState(); if (tlLeft() <= 0) tlLock(false); }, 400);
+TL.timer = setInterval(tlTick, 1000);
+
+// pour le petit script du service worker (hors de ce bloc)
+window.__romiBusy = () => curView === "vGame";
+window.__romiSave = () => { try { save(); } catch(e) {} };
 })();
 </script>
 
 <script>
+
 if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
   addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
   // nouvelle version installée : on recharge tout seul, mais jamais au milieu d'une partie
@@ -9168,7 +9351,7 @@ if ("serviceWorker" in navigator && (location.protocol === "https:" || location.
   const hadCtl = !!navigator.serviceWorker.controller;
   navigator.serviceWorker.addEventListener("controllerchange", () => {
     if (!hadCtl || swReload) return; swReload = true;
-    const go = () => { if (curView === "vGame") return setTimeout(go, 3000); try { save(); } catch(e) {} location.reload(); };
+    const go = () => { if (window.__romiBusy && window.__romiBusy()) return setTimeout(go, 3000); if (window.__romiSave) window.__romiSave(); location.reload(); };
     go();
   });
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") navigator.serviceWorker.getRegistration().then(r => r && r.update()).catch(() => {}); });
